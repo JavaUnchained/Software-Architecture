@@ -1,4 +1,10 @@
 package com.example.foodeliver.entity;
 
-public class Operator {
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("OPERATOR")
+public class Operator extends User{
+
 }

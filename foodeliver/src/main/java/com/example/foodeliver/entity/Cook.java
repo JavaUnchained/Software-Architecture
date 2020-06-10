@@ -1,4 +1,9 @@
 package com.example.foodeliver.entity;
 
-public class Cook {
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("COOCK")
+public class Cook extends User {
 }
