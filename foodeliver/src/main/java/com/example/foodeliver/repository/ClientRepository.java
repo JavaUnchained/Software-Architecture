@@ -1,4 +1,9 @@
 package com.example.foodeliver.repository;
 
-public class ClientRepository {
+import com.example.foodeliver.entity.Client;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ClientRepository extends CrudRepository<Client, Long> {
 }
