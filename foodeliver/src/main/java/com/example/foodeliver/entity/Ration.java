@@ -1,4 +1,4 @@
 package com.example.foodeliver.entity;
 
-public class Order {
+public class Ration {
 }

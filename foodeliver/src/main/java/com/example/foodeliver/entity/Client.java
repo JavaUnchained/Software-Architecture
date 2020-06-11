@@ -1,7 +1,4 @@
-package com.example.foodeliver.entity;
-
-import javax.persistence.DiscriminatorValue;
-
-@DiscriminatorValue("CLIENT")
-public class Client {
-}
+//package com.example.foodeliver.entity.Users;
+//
+//public class Client extends User {
+//}
