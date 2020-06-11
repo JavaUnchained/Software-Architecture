@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Rations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-
+    <div>
+        <h2>Add ration</h2>
+    </div>
+    <form action="#" th:action="@{/books/save}" th:object="${form}" method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+        <table>
+            <thead>
+            <tr>
+                <th> Title</th>
+                <th> Author</th>
+            </tr>
+            </thead>
+                <tbody>
+                    <tr th:each="book, itemStat : *{books}">
+                        <td><input th:field="*{books[__${itemStat.index}__].title}" /></td>
+                        <td><input th:field="*{books[__${itemStat.index}__].author}" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+    <div>
+        <h2>List of rations</h2>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th> Id </th>
+            <th> Name </th>
+            <th> Price </th>
+            <th> Description </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${rations.empty}">
+            <td colspan="2"> No Rations Available </td>
+        </tr>
+        <tr th:each="ration : ${rations}">
+            <td><span th:text="${ration.id}"> Id </span></td>
+            <td><span th:text="${ration.rationName}"> Name </span></td>
+            <td><span th:text="${ration.price}"> Price </span></td>
+            <td><span th:text="${ration.rationDescription}"> Description </span></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 </html>
