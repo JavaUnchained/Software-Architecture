@@ -1,4 +1,7 @@
 package com.example.foodeliver.repository;
 
-public class RationRepository {
+import com.example.foodeliver.entity.Ration;
+import org.springframework.data.repository.CrudRepository;
+
+public interface RationRepository extends CrudRepository<Ration, Long> {
 }
