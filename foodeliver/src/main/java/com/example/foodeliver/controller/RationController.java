@@ -14,11 +14,6 @@ public class RationController {
     @Autowired
     private RationRepository rationRepository;
 
-    @GetMapping("/operatorpage")
-    public String operatorPage() {
-        return "operatorpage";
-    }
-
     @GetMapping("/rations")
     public String rations(Model model) {
         model.addAttribute("rations", rationRepository.findAll());
