@@ -8,25 +8,12 @@
     <div>
         <h2>Add ration</h2>
     </div>
-    <form action="#" th:action="@{/books/save}" th:object="${form}" method="post">
-    <fieldset>
-        <input type="submit" id="submitButton" th:value="Save">
-        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
-        <table>
-            <thead>
-            <tr>
-                <th> Title</th>
-                <th> Author</th>
-            </tr>
-            </thead>
-                <tbody>
-                    <tr th:each="book, itemStat : *{books}">
-                        <td><input th:field="*{books[__${itemStat.index}__].title}" /></td>
-                        <td><input th:field="*{books[__${itemStat.index}__].author}" /></td>
-                    </tr>
-                </tbody>
-            </table>
-        </fieldset>
+    <form action="#" th:action="@{/rations}" th:object="${ration}" method="post">
+        <p>Id: <input type="text" th:field="*{id}" /></p>
+        <p>Name: <input type="text" th:field="*{name}" /></p>
+        <p>Price: <input type="text" th:field="*{content}" /></p>
+        <p>Description: <input type="text" th:field="*{content}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
     <div>
         <h2>List of rations</h2>

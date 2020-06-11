@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class OperatorController {
+public class ClientController {
 
-    @GetMapping("/operatorpage")
-    public String operatorPage() {
-        return "operatorpage";
+    @GetMapping("/clientpage")
+    public String clientpage() {
+        return "clientpage";
     }
 
 }
