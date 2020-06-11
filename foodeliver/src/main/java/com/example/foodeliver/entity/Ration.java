@@ -1,5 +1,6 @@
 package com.example.foodeliver.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,5 +19,11 @@ public class Ration {
 
     private String rationName;
     private String rationDescription;
-    private String price;
+    private Double price;
+
+    public Ration(String rationName, String rationDescription, Double price) {
+        this.rationName = rationName;
+        this.rationDescription = rationDescription;
+        this.price = price;
+    }
 }

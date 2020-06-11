@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RationController {
@@ -21,7 +21,13 @@ public class RationController {
     }
 
     @PostMapping("/rations")
-    public String rationsSumbit(@ModelAttribute Ration ration) {
-        return "result";
+    public String rationsSumbit(@RequestParam String name,
+                                @RequestParam Double price,
+                                @RequestParam String description,
+                                Model model) {
+        Ration ration = new Ration(name,description,price);
+        rationRepository.save(ration);
+        model.addAttribute("rations", rationRepository.findAll());
+        return "rations";
     }
 }
