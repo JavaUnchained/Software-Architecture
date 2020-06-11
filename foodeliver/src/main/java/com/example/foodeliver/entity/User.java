@@ -1,6 +1,7 @@
 package com.example.foodeliver.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "USER_ROLE")
 @Table(name = "USR")
 @Data
+@NoArgsConstructor
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
