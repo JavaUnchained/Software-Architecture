@@ -2,8 +2,8 @@ package com.example.foodeliver.controller;
 
 import com.example.foodeliver.entity.person.Client;
 import com.example.foodeliver.entity.person.Role;
-import com.example.foodeliver.service.DriverService;
-import com.example.foodeliver.service.PassengerService;
+import com.example.foodeliver.service.CourierService;
+import com.example.foodeliver.service.ClientService;
 import com.example.foodeliver.service.RoleService;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,10 +23,10 @@ import java.time.LocalDate;
 public class RegistrationController {
 
     @Autowired
-    private PassengerService passengerService;
+    private ClientService clientService;
 
     @Autowired
-    private DriverService driverService;
+    private CourierService courierService;
 
     @Autowired
     private RoleService roleService;
@@ -52,7 +52,7 @@ public class RegistrationController {
         Role role = roleService.getRoleByName("ROLE_PASSENGER");
         client.setRoleId(role);
 
-        passengerService.savePassenger(client);
+        clientService.savePassenger(client);
         return "redirect:/clientpage";
     }
 
