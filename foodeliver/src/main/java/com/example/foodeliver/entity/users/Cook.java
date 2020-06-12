@@ -12,7 +12,9 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class Cook extends User {
-    public Cook(String surname, String name, LocalDate dateOfBirth, String phoneNumber, String username, String password, Role roleId) {
-        super(surname, name, dateOfBirth, phoneNumber, username, password, roleId);
+
+    public Cook(String surname, String name, String phoneNumber, String username, String password, Role roleId) {
+        super(surname, name, phoneNumber, username, password, roleId);
     }
+
 }

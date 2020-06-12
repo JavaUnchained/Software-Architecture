@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class RegistrationController {
-
+//@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
     @Autowired
     private ClientService clientService;
 
@@ -38,22 +38,20 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public String registration(@RequestParam String surname, @RequestParam String name, @RequestParam String phoneNumber,
-                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
-                               @RequestParam String username, @RequestParam String password, @RequestParam String bankcardNumber) {
+                               @RequestParam String username, @RequestParam String password) {
         Client client = new Client();
         client.setSurname(surname);
         client.setName(name);
         client.setPhoneNumber(phoneNumber);
-        client.setDateOfBirth(dateOfBirth);
         client.setUsername(username);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         client.setPassword(encoder.encode(password));
-        Role role = roleService.getRoleByName("ROLE_PASSENGER");
+        Role role = roleService.getRoleByName("ROLE_CLIENT");
         client.setRoleId(role);
 
         clientService.savePassenger(client);
-        return "redirect:/clientpage";
+        return "redirect:/index";
     }
 
 }

@@ -7,7 +7,7 @@
 <body>
     <div sec:authorize="isAuthenticated()">
         Logged user: <span sec:authentication="name">Bob</span>
-        Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_OPERATOR]</span>
+        Roles: <span sec:authentication="principal.authorities">[ROLE_OPERATOR, ROLE_CLIENT,ROLE_COOK,ROLE_COURIER]</span>
         <h4><a href="/logout">Sign out</a></h4>
     </div>
     <div sec:authorize="!isAuthenticated()">
@@ -19,10 +19,16 @@
         <a href="">Orders</a>
         <a href="">Coupons</a>
     </div>
-    <div sec:authorize="hasRole('ROLE_PASSENGER')">
+    <div sec:authorize="hasRole('ROLE_CLIENT')">
         <a href="/makeorder">Make an order</a>
         <a href="/makeorder">Make a refund</a>
         <a href="/makeorder">Your orders</a>
+    </div>
+    <div sec:authorize="hasRole('ROLE_COOK')">
+        <a href="/makeorder">Cooking coupons</a>
+    </div>
+    <div sec:authorize="hasRole('ROLE_COURIER')">
+        <a href="/makeorder">Delivery coupons</a>
     </div>
 </body>
 </html>
