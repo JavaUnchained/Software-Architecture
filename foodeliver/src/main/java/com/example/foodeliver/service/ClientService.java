@@ -1,6 +1,6 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.person.Client;
+import com.example.foodeliver.entity.users.Client;
 import com.example.foodeliver.repository.ClientRepository;
 import lombok.Getter;
 import lombok.Setter;

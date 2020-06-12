@@ -1,4 +1,4 @@
-package com.example.foodeliver.entity.person;
+package com.example.foodeliver.entity.users;
 
 import lombok.*;
 

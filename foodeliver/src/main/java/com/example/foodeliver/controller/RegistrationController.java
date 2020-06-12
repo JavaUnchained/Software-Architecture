@@ -1,7 +1,7 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.entity.person.Client;
-import com.example.foodeliver.entity.person.Role;
+import com.example.foodeliver.entity.users.Client;
+import com.example.foodeliver.entity.users.Role;
 import com.example.foodeliver.service.CourierService;
 import com.example.foodeliver.service.ClientService;
 import com.example.foodeliver.service.RoleService;
