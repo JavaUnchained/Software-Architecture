@@ -18,6 +18,11 @@ public class Ration {
     private String rationDescription;
     private Double price;
 
+    @OneToOne(mappedBy = "ration", cascade = {
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
+    })
+    private Order order;
+
     public Ration(String rationName, String rationDescription, Double price) {
         this.rationName = rationName;
         this.rationDescription = rationDescription;
