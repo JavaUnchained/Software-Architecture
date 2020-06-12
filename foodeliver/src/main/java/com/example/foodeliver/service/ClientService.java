@@ -17,7 +17,7 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-    public void savePassenger(Client client) {
+    public void saveClient(Client client) {
         clientRepository.save(client);
     }
 
@@ -26,7 +26,7 @@ public class ClientService {
         return client;
     }
 
-    public List<Client> getPassengers() {
+    public List<Client> getClients() {
         List<Client> clients = clientRepository.findAll();
         return clients;
     }

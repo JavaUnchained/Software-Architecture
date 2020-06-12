@@ -8,14 +8,11 @@ import com.example.foodeliver.service.RoleService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.time.LocalDate;
 
 @Controller
 @Getter
@@ -50,7 +47,7 @@ public class RegistrationController {
         Role role = roleService.getRoleByName("ROLE_CLIENT");
         client.setRoleId(role);
 
-        clientService.savePassenger(client);
+        clientService.saveClient(client);
         return "redirect:/index";
     }
 

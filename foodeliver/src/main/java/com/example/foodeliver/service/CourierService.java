@@ -16,9 +16,6 @@ public class CourierService {
 
     @Autowired
     private CourierRepository courierRepository;
-    @Autowired
-    private ClientService clientService;
-
 
     public Courier getCourierByUsername(String username) {
         Courier courier = courierRepository.getCourierByUsername(username);
@@ -31,8 +28,8 @@ public class CourierService {
     }
 
 
-    public Courier getCourierById(Long idCourier) {
-        Courier courier = courierRepository.findById(idCourier).get();
+    public Courier getCourierById(Long id) {
+        Courier courier = courierRepository.findById(id).get();
         return courier;
     }
 

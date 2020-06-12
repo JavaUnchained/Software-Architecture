@@ -42,7 +42,6 @@ public class FoodeliverApplication implements CommandLineRunner{
         Courier courier1 =new Courier();
         courier1.setSurname("Driver1Surname");
         courier1.setName("Driver1Name");
-        courier1.setDateOfBirth(LocalDate.of(1960,10,5));
         courier1.setPhoneNumber("8-910-100-00-00");
         courier1.setUsername("d1");
         courier1.setPassword("$2a$10$xDFKjI/oB3/d95NzD7e.Xebe2PzO.2y4Ilbtw34PoOj1jF/ZhHQOi");
@@ -54,7 +53,6 @@ public class FoodeliverApplication implements CommandLineRunner{
         Courier courier2 =new Courier();
         courier2.setSurname("Driver2Surname");
         courier2.setName("Driver2Name");
-        courier2.setDateOfBirth(LocalDate.of(1987,10,13));
         courier2.setPhoneNumber("8-910-200-20-00");
         courier2.setUsername("d2");
         courier2.setPassword("$2a$10$c.CRBiZJVWFOxPQy2PwCuOr8IwlRHF8IVkRqdUazABxwvAR2spU5m");
@@ -69,7 +67,6 @@ public class FoodeliverApplication implements CommandLineRunner{
         Operator operator1 = new Operator();
         operator1.setSurname("Operator1Surname");
         operator1.setName("Operator1Name");
-        operator1.setDateOfBirth(LocalDate.of(1989,12,10));
         operator1.setPhoneNumber("8-950-123-11-11");
         operator1.setUsername("o1");
         operator1.setPassword("123123123");
@@ -80,7 +77,6 @@ public class FoodeliverApplication implements CommandLineRunner{
         Operator operator2 = new Operator();
         operator2.setUsername("Operator3Surname");
         operator2.setName("Operator3Name");
-        operator2.setDateOfBirth(LocalDate.of(1990,5,7));
         operator2.setPhoneNumber("8-950-852-78-88");
         operator2.setUsername("o4");
         operator2.setPassword("123123123");
@@ -91,7 +87,6 @@ public class FoodeliverApplication implements CommandLineRunner{
         Client client1 =new Client();
         client1.setSurname("Passenger1Surname");
         client1.setName("Passenger1Name");
-        client1.setDateOfBirth(LocalDate.of(1979,11,3));
         client1.setPhoneNumber("8-980-111-22-25");
         client1.setUsername("p1");
         client1.setPassword("$2a$10$8SMwIL8PL2w4zuqz8phx9.rkj.AP1913AOJVgNf9zhQo1bZxVxXci");
@@ -102,7 +97,6 @@ public class FoodeliverApplication implements CommandLineRunner{
         Client client2 =new Client();
         client2.setSurname("Passenger2Surname");
         client2.setName("Passenger2Name");
-        client2.setDateOfBirth(LocalDate.of(1984,5,10));
         client2.setPhoneNumber("8-980-251-80-80");
         client2.setUsername("p2");
         client2.setPassword("$2a$10$f5FjBoebekM9HYuFjgn5NeX9GUyd5VoD7wL5ZgJG.M6/NO6lk3bfu");
