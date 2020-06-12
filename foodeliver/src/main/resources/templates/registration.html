@@ -2,9 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
-
+<div>
+    <form method="POST" modelAttribute="userForm">
+        <h2>Регистрация</h2>
+        <div>
+            <input type="text" path="username" placeholder="Username" autofocus="true"/>
+        </div>
+        <div>
+            <input type="password" path="password" placeholder="Password"/>
+        </div>
+        <div>
+            <input type="password" path="passwordConfirm" placeholder="Confirm your password"/>
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <a href="/">Главная</a>
+</div>
 </body>
 </html>
