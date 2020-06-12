@@ -84,7 +84,7 @@ public class FoodeliverApplication implements CommandLineRunner{
         operator2.setPhoneNumber("8-950-852-78-88");
         operator2.setUsername("o4");
         operator2.setPassword("123123123");
-        operator2.setRoleId(roleRepository.getByName("ROLE_OPERATOR"));
+        operator2.setRoleId(roleRepository.getRoleByName("ROLE_OPERATOR"));
         operatorRepository.save(operator2);
 
 

@@ -22,7 +22,7 @@ public class ClientService {
     }
 
     public Client getClientByUsername(String username) {
-        Client client = clientRepository.getPassengerByUsername(username);
+        Client client = clientRepository.getClientByUsername(username);
         return client;
     }
 

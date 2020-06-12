@@ -21,7 +21,7 @@ public class CourierService {
 
 
     public Courier getCourierByUsername(String username) {
-        Courier courier = courierRepository.getDriverByUsername(username);
+        Courier courier = courierRepository.getCourierByUsername(username);
         return courier;
     }
 
