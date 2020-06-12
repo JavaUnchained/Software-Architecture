@@ -1,4 +1,7 @@
 package com.example.foodeliver.repository;
 
-public interface RoleRepository {
+import com.example.foodeliver.entity.person.Role;
+import org.springframework.data.repository.CrudRepository;
+
+public interface RoleRepository extends CrudRepository<Role, Long> {
 }
