@@ -2,6 +2,8 @@ package com.example.foodeliver.entity;
 
 import com.example.foodeliver.entity.status.OrderPayStatus;
 import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
+import com.example.foodeliver.entity.users.Client;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +38,10 @@ public class Order {
     @Column(name = "subsribe", nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
     private SubscrabeStatusEnum subscrabeStatusEnum;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     public Order(OrderPayStatus status,Ration ration,Adress adress,
                  LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum ) {
