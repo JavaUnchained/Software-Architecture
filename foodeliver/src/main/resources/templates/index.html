@@ -11,6 +11,14 @@
         Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_OPERATOR]</span>
     </div>
     <div sec:authorize="isAuthenticated()">
+        <h4><a href="/logout">Выйти</a></h4>
+    </div>
+    <div sec:authorize="!isAuthenticated()">
+        <h4><a href="/login">Войти</a></h4>
+        <h4><a href="/registration">Зарегистрироваться</a></h4>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
     This content is only shown to authenticated users.
     </div>
     <div sec:authorize="hasRole('ROLE_OPERATOR')">
