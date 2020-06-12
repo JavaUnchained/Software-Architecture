@@ -22,6 +22,11 @@ public class Adress {
     })
     private Order order;
 
+    @OneToOne(mappedBy = "adress", cascade = {
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
+    })
+    private Coupon coupon;
+
     private String city;
     private String street;
     private String house;
