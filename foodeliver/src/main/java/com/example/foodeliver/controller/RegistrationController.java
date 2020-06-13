@@ -1,8 +1,8 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.domain.Account;
-import com.example.foodeliver.domain.users.Client;
-import com.example.foodeliver.domain.users.Role;
+import com.example.foodeliver.entity.Account;
+import com.example.foodeliver.entity.users.Client;
+import com.example.foodeliver.entity.users.Role;
 import com.example.foodeliver.service.AccountService;
 import com.example.foodeliver.service.CourierService;
 import com.example.foodeliver.service.ClientService;

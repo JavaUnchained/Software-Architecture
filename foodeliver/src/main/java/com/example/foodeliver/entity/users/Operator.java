@@ -1,6 +1,6 @@
-package com.example.foodeliver.domain.users;
+package com.example.foodeliver.entity.users;
 
-import com.example.foodeliver.domain.Account;
+import com.example.foodeliver.entity.Account;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

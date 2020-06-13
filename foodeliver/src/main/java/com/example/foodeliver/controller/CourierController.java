@@ -1,7 +1,7 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.domain.Coupon;
-import com.example.foodeliver.domain.status.CouponStatusEnum;
+import com.example.foodeliver.entity.Coupon;
+import com.example.foodeliver.entity.status.CouponStatusEnum;
 import com.example.foodeliver.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.domain.users.Operator;
+import com.example.foodeliver.entity.users.Operator;
 import com.example.foodeliver.repository.CouponRepository;
 import com.example.foodeliver.repository.OperatorRepository;
 import lombok.Getter;

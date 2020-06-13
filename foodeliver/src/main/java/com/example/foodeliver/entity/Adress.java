@@ -1,4 +1,4 @@
-package com.example.foodeliver.domain;
+package com.example.foodeliver.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

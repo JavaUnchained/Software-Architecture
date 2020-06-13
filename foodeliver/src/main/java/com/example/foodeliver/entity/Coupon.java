@@ -1,6 +1,6 @@
-package com.example.foodeliver.domain;
+package com.example.foodeliver.entity;
 
-import com.example.foodeliver.domain.status.CouponStatusEnum;
+import com.example.foodeliver.entity.status.CouponStatusEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

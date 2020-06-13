@@ -1,6 +1,6 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.domain.users.Courier;
+import com.example.foodeliver.entity.users.Courier;
 import com.example.foodeliver.repository.CourierRepository;
 import lombok.Getter;
 import lombok.Setter;

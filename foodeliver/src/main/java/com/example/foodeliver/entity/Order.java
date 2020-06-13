@@ -1,8 +1,8 @@
-package com.example.foodeliver.domain;
+package com.example.foodeliver.entity;
 
-import com.example.foodeliver.domain.status.OrderPayStatus;
-import com.example.foodeliver.domain.status.SubscrabeStatusEnum;
-import com.example.foodeliver.domain.users.Client;
+import com.example.foodeliver.entity.status.OrderPayStatus;
+import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
+import com.example.foodeliver.entity.users.Client;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
