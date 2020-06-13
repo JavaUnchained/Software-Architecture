@@ -5,6 +5,7 @@ import com.example.foodeliver.entity.Coupon;
 import com.example.foodeliver.entity.Order;
 import com.example.foodeliver.entity.status.CouponStatusEnum;
 import com.example.foodeliver.entity.status.OrderPayStatus;
+import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
 import com.example.foodeliver.entity.users.Operator;
 import com.example.foodeliver.service.CouponService;
 import com.example.foodeliver.service.OperatorService;
@@ -45,6 +46,7 @@ public class OperatorController {
         Operator operator = getCurrentOperator();
         CouponStatusEnum couponStatusEnum;
         Double operatorBalance;
+        LocalDate shipingDate;
 
         if(order.getStatus() == OrderPayStatus.PAID){
 
@@ -52,22 +54,31 @@ public class OperatorController {
             couponStatusEnum = CouponStatusEnum.AWAITING;
             operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
 
-        }else if(order.getStatus() == OrderPayStatus.REFUNDABLE){
+        }else if(order.getStatus() == OrderPayStatus.REFUNDABLE) {
 
             couponStatusEnum = CouponStatusEnum.BACK_DELLIVERED;
             operatorBalance = operator.getAccount().getBalance() - order.getRation().getPrice();
 
-        }else {
+        }else{
             couponStatusEnum = CouponStatusEnum.DONE;
             operatorBalance = operator.getAccount().getBalance();
         }
+
+        if(order.getSubscrabeStatusEnum() == SubscrabeStatusEnum.SUBSCRIBE
+                    && order.getStatus() != OrderPayStatus.REFUNDABLE
+                    && order.getStatus() != OrderPayStatus.REFUNDED) {
+        order.getShippingDate().plusDays(30);
+        order.setStatus(OrderPayStatus.PAID);
+        }
+
+        orderService.saveOrder(order);
 
         operator.getAccount().setBalance(operatorBalance);
         operatorService.saveOperatorState(operator);
 
         Adress adress = order.getAdress();
         String name = order.getRation().getRationName();
-        LocalDate shipingDate = order.getShippingDate();
+        shipingDate= order.getShippingDate();
 
         Coupon coupon = couponService.couponFactroyMethod(name, couponStatusEnum, adress, shipingDate);
         couponService.saveCoupon(coupon);

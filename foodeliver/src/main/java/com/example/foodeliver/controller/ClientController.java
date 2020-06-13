@@ -92,6 +92,12 @@ public class ClientController {
     @PostMapping("/refund")
     public String postRefund(@RequestParam Long id, Model model) {
         Order order = orderService.orderById(id);
+        Client client = getCurrentClient();
+
+        Double balance = client.getAccount().getBalance() + order.getRation().getPrice() ;
+        client.getAccount().setBalance(balance);
+
+        clientService.saveClient(client);
         order.setStatus(OrderPayStatus.REFUNDABLE);
         orderService.saveOrder(order);
 
