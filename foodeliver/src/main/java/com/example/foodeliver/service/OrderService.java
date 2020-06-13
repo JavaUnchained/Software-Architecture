@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Getter
@@ -24,6 +25,11 @@ public class OrderService {
     public Order orderFactoryMethod(OrderPayStatus status, Adress adress,
                                     LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum, Ration ration){
         return new Order(status,adress,shippingDate,subscrabeStatusEnum,ration);
+    }
+
+    public Order orderById(Long id) {
+        Optional<Order> orderOptional = orderRepository.findById(id);
+        return orderOptional.get();
     }
 
     public void saveOrder(Order order){
