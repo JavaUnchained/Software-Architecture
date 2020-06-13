@@ -88,7 +88,7 @@ public class ClientController {
 
     @GetMapping("/refund")
     public String getRefund(Model model) {
-        Client client = getCurrentClient();
+//        Client client = getCurrentClient();
 //        List<Order> clientOrders = client.getOrders();
         model.addAttribute("orders", orderService.getAllOrders());
         return "refund";

@@ -48,8 +48,7 @@ public class OperatorController {
     }
 
     @PostMapping("/operator_order")
-    public String rationsSumbit(@RequestParam Long id,
-                                Model model) {
+    public String rationsSumbit(@RequestParam Long id, Model model) {
         Order order = orderService.orderById(id);
         Operator operator = getCurrentOperator();
         CouponStatusEnum couponStatusEnum;

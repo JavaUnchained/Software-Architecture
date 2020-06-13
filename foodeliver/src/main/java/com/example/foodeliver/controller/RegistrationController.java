@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Getter
 @Setter
 public class RegistrationController {
-//@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
+
     @Autowired
     private ClientService clientService;
 
@@ -41,16 +41,15 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String registration(@RequestParam String username, @RequestParam String password,
                                @RequestParam String name, @RequestParam String surname,
-                               @RequestParam String phoneNumber, @RequestParam Integer account) {
+                               @RequestParam String phoneNumber, @RequestParam Double account) {
 
-        Double balance = account.doubleValue();
-        Account account1 = accountService.accountFactoryMethod(balance);
+        Account account1 = accountService.accountFactoryMethod(account);
 
         Client client = new Client();
+        client.setUsername(username);
         client.setSurname(surname);
         client.setName(name);
         client.setPhoneNumber(phoneNumber);
-        client.setUsername(username);
         client.setAccount(account1);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -60,7 +59,7 @@ public class RegistrationController {
 
         clientService.saveClient(client);
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 
 }
