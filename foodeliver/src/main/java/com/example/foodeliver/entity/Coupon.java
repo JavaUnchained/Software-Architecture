@@ -2,9 +2,11 @@ package com.example.foodeliver.entity;
 
 import com.example.foodeliver.entity.status.CouponStatusEnum;
 import com.example.foodeliver.entity.users.Operator;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,7 +24,14 @@ public class Coupon {
     @JoinColumn(name = "adress_id")
     private Adress adress;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
+    public Coupon(String name, CouponStatusEnum couponStatusEnum, Adress adress, LocalDate shippingDate) {
+        this.adress = adress;
+        this.couponStatusEnum = couponStatusEnum;
+        this.name = name;
+        this.shippingDate = shippingDate;
+    }
+
+    //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "operator_id")
 //    private Operator operator;
 

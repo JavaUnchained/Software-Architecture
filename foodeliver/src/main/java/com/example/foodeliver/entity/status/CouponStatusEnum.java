@@ -1,5 +1,5 @@
 package com.example.foodeliver.entity.status;
 
 public enum CouponStatusEnum {
-    COOKING, COOKED, DELIVERING, DELIVERED
+    AWAITING, COOKED, DELIVERY, BACK_DELLIVERED
 }
