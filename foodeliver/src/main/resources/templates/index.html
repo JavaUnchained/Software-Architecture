@@ -6,8 +6,8 @@
 </head>
 <body>
     <div sec:authorize="isAuthenticated()">
-        Logged user: <span sec:authentication="name">Bob</span>
-        Roles: <span sec:authentication="principal.authorities">[ROLE_OPERATOR, ROLE_CLIENT,ROLE_COOK,ROLE_COURIER]</span>
+        <p>Logged user: <span sec:authentication="name">Bob</span></p>
+        <p>Roles: <span sec:authentication="principal.authorities">[ROLE_OPERATOR, ROLE_CLIENT,ROLE_COOK,ROLE_COURIER]</span></p>
         <h4><a href="/logout">Sign out</a></h4>
     </div>
     <div sec:authorize="!isAuthenticated()">
