@@ -41,7 +41,7 @@ public class PersonalController {
     @PostMapping("/courier_coupons")
     public String courierCouponsPost(@RequestParam Long id,Model model) {
         Coupon coupon =  couponService.getCouponById(id);
-        coupon.setCouponStatusEnum(CouponStatusEnum.COOKED);
+        coupon.setCouponStatusEnum(CouponStatusEnum.DELIVERY);
         model.addAttribute("coupons", couponService.getAllCouponsForCourier());
         return "courier_coupons";
     }
