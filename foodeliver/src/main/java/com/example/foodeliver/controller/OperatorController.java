@@ -56,7 +56,8 @@ public class OperatorController {
         String name = order.getRation().getRationName();
         LocalDate shipingDate = order.getShippingDate();
 
-        couponService.couponFactroyMethod();
+        Coupon coupon = couponService.couponFactroyMethod(name, couponStatusEnum, adress, shipingDate);
+        couponService.saveCoupon(coupon);
 
         model.addAttribute("orders", orderService.getAllOrders());
         return "operator_order";

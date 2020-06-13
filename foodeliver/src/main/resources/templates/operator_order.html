@@ -1,36 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Make order</title>
+    <title>Orders</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div>
-    <h2>List of rations</h2>
-</div>
-<table>
-    <thead>
-    <tr>
-        <th> Id </th>
-        <th> Name </th>
-        <th> Price </th>
-        <th> Description </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${rations.empty}">
-        <td colspan="2"> No Rations Available </td>
-    </tr>
-    <tr th:each="ration : ${rations}">
-        <td><span th:text="${ration.id}"> Id </span></td>
-        <td><span th:text="${ration.rationName}"> Name </span></td>
-        <td><span th:text="${ration.price}"> Price </span></td>
-        <td><span th:text="${ration.rationDescription}"> Description </span></td>
-    </tr>
-    </tbody>
-</table>
-<div>
-    <h2>Your orders</h2>
+    <h2>List of order</h2>
 </div>
 <table>
     <thead>
@@ -61,11 +37,8 @@
 <hr>
 <br>
 <form method="post">
-    <input type="text" name="name" placeholder="Name of rations">
-    <input type="date" name="shippingdate" placeholder="date of delivery">
-    <input type="text" name="address" placeholder="Enter your adress">
-    <input type="number" name="subscabeperiod" placeholder="How much to be subscribed">
-    <button type="submit">Get order</button>
+    <p>Enter id of order: <input type="number" name="id"></p>
+    <button type="submit">Confirm</button>
 </form>
 <br>
 <hr>
