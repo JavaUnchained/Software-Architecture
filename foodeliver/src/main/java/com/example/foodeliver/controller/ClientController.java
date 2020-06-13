@@ -81,7 +81,7 @@ public class ClientController {
         client.setOrders(orders);
         clientService.saveClient(client);
 
-        model.addAttribute("orders", rationService.getAllRations());
+        model.addAttribute("orders", orderService.getAllOrders());
         model.addAttribute("rations", rationService.getAllRations());
         return "client_order";
     }
