@@ -42,15 +42,28 @@ public class OperatorController {
     public String rationsSumbit(@RequestParam Long id,
                                 Model model) {
         Order order = orderService.orderById(id);
-        order.setStatus(OrderPayStatus.CONFIRMED);
-
         Operator operator = getCurrentOperator();
+        CouponStatusEnum couponStatusEnum;
+        Double operatorBalance;
 
-        Double operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
+        if(order.getStatus() == OrderPayStatus.PAID){
+
+            order.setStatus(OrderPayStatus.CONFIRMED);
+            couponStatusEnum = CouponStatusEnum.AWAITING;
+            operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
+
+        }else if(order.getStatus() == OrderPayStatus.REFUNDABLE){
+
+            couponStatusEnum = CouponStatusEnum.BACK_DELLIVERED;
+            operatorBalance = operator.getAccount().getBalance() - order.getRation().getPrice();
+
+        }else {
+            couponStatusEnum = CouponStatusEnum.DONE;
+            operatorBalance = operator.getAccount().getBalance();
+        }
+
         operator.getAccount().setBalance(operatorBalance);
-
         Adress adress = order.getAdress();
-        CouponStatusEnum couponStatusEnum = CouponStatusEnum.AWAITING;
         String name = order.getRation().getRationName();
         LocalDate shipingDate = order.getShippingDate();
 

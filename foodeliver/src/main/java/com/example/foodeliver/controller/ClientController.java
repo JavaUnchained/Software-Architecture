@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.jws.WebParam;
 import javax.persistence.ElementCollection;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -78,6 +79,20 @@ public class ClientController {
         model.addAttribute("orders", client.getOrders());
         model.addAttribute("rations", rationService.getAllRations());
         return "client_order";
+    }
+
+    @GetMapping("/refund")
+    public String getRefund(Model model) {
+        Client client = getCurrentClient();
+        List<Order> clientOrders = client.getOrders();
+        model.addAttribute("orders", clientOrders);
+        return "refund";
+    }
+
+    @PostMapping("/refund")
+    public String postRefund(Model model) {
+
+        return "refund";
     }
 
     public Client getCurrentClient() {
