@@ -5,7 +5,6 @@ import com.example.foodeliver.entity.Coupon;
 import com.example.foodeliver.entity.Order;
 import com.example.foodeliver.entity.status.CouponStatusEnum;
 import com.example.foodeliver.entity.status.OrderPayStatus;
-import com.example.foodeliver.entity.users.Client;
 import com.example.foodeliver.entity.users.Operator;
 import com.example.foodeliver.service.CouponService;
 import com.example.foodeliver.service.OperatorService;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 public class OperatorController {
@@ -63,15 +61,16 @@ public class OperatorController {
         return "operator_order";
     }
 
+    @GetMapping("/operator_coupons")
+    public String operatorCoupons(Model model) {
+        model.addAttribute("coupons", couponService.getAllCoupons());
+        return "operator_coupons";
+    }
+
     public Operator getCurrentOperator() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         return operatorService.getOperatorByUsername(currentPrincipalName);
     }
 
-    @GetMapping("/operator_coupons")
-    public String operatorCoupons(Model model) {
-        model.addAttribute("coupons", couponService.getAllCoupons());
-        return "operator_coupons";
-    }
 }
