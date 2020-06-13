@@ -101,6 +101,7 @@ public class ClientController {
         order.setStatus(OrderPayStatus.REFUNDABLE);
         orderService.saveOrder(order);
 
+        model.addAttribute("orders", client.getOrders());
         return "refund";
     }
 
