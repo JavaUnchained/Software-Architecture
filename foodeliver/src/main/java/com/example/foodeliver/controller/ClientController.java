@@ -91,7 +91,9 @@ public class ClientController {
 
     @PostMapping("/refund")
     public String postRefund(@RequestParam Long id, Model model) {
-        orderService.orderById(id);
+        Order order = orderService.orderById(id);
+        order.setStatus(OrderPayStatus.REFUNDABLE);
+        orderService.saveOrder(order);
 
         return "refund";
     }
