@@ -38,4 +38,11 @@ public class Adress {
         this.house = house;
         this.flat = flat;
     }
+
+    @Override
+    public String toString() {
+        return "Adress:" + city + '\'' +
+                 street + '\'' +
+                 house + '\'' + flat;
+    }
 }

@@ -31,4 +31,11 @@ public class Ration {
         this.rationDescription = rationDescription;
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Ration:" +
+                rationName + '\'' +
+                rationDescription + '\'' + price;
+    }
 }

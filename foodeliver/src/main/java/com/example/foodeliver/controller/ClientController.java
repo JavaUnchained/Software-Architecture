@@ -29,15 +29,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class OrderController {
+public class ClientController {
     @Autowired
     private OrderService orderService;
 
     @Autowired
     private ClientService clientService;
-
-    @Autowired
-    private OperatorService operatorService;
 
     @Autowired
     private RationService rationService;
@@ -53,7 +50,7 @@ public class OrderController {
     @PostMapping("/client_order")
     public String clientOrderSubmit(@RequestParam String name,
                                     @RequestParam String address,
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate shippingDate,
+                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate shippingdate,
                                     @RequestParam Integer subscabeperiod,
                                     Model model) {
 
@@ -69,10 +66,12 @@ public class OrderController {
         }
 
         Order order = orderService.orderFactoryMethod(
-                OrderPayStatus.PAID, adress, shippingDate, subscrabe,ration);
-
+                OrderPayStatus.PAID, adress, shippingdate, subscrabe,ration);
 
         Client client = getCurrentClient();
+        Double balance  = client.getAccount().getBalance() - ration.getPrice();
+
+        client.getAccount().setBalance(balance);
         client.getOrders().add(order);
         clientService.saveClient(client);
 
@@ -80,24 +79,6 @@ public class OrderController {
         model.addAttribute("rations", rationService.getAllRations());
         return "client_order";
     }
-
-    @GetMapping("/operator_order")
-    public String operatorOrder(Model model) {
-        model.addAttribute("orders", orderService.getAllOrders());
-        return "operator_order";
-    }
-
-//    @PostMapping("/operator_order")
-//    public String rationsSumbit(@RequestParam String name,
-//                                @RequestParam Double price,
-//                                @RequestParam String description,
-//                                Model model) {
-//        Ration ration = rationService.rationFactoryMethod(name,price,description);
-//        rationService.saveRation(ration);
-//
-//        model.addAttribute("rations", rationService.getAllRations());
-//        return "operator_order";
-//    }
 
     public Client getCurrentClient() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
