@@ -25,10 +25,10 @@
         <a href="">Your orders</a>
     </div>
     <div sec:authorize="hasRole('ROLE_COOK')">
-        <a href="">Cooking coupons</a>
+        <a href="/cook_coupons">Cooking coupons</a>
     </div>
     <div sec:authorize="hasRole('ROLE_COURIER')">
-        <a href="">Delivery coupons</a>
+        <a href="/courier_coupons">Delivery coupons</a>
     </div>
 </body>
 </html>
