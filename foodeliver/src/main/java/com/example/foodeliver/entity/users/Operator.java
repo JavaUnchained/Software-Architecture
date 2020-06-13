@@ -22,8 +22,8 @@ public class Operator extends User {
         this.account = account;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator", fetch = FetchType.EAGER)
-    private List<Coupon> orders = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator", fetch = FetchType.EAGER)
+//    private List<Coupon> orders = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")

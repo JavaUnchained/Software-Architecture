@@ -22,9 +22,9 @@ public class Coupon {
     @JoinColumn(name = "adress_id")
     private Adress adress;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "operator_id")
-    private Operator operator;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "operator_id")
+//    private Operator operator;
 
     @Column(name = "c_status")
     @Enumerated(EnumType.STRING)

@@ -1,5 +1,6 @@
 package com.example.foodeliver.controller;
 
+import com.example.foodeliver.entity.Coupon;
 import com.example.foodeliver.entity.Order;
 import com.example.foodeliver.entity.status.OrderPayStatus;
 import com.example.foodeliver.entity.users.Client;
@@ -41,7 +42,7 @@ public class OperatorController {
         Double operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
         operator.getAccount().setBalance(operatorBalance);
 
-        operator
+
 
         model.addAttribute("orders", orderService.getAllOrders());
         return "operator_order";
