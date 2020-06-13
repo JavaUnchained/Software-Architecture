@@ -27,6 +27,7 @@ public class PersonalController {
     public String cookCouponsPost(@RequestParam Long id, Model model) {
         Coupon coupon =  couponService.getCouponById(id);
         coupon.setCouponStatusEnum(CouponStatusEnum.COOKED);
+        couponService.saveCoupon(coupon);
         model.addAttribute("coupons", couponService.getAllCouponsForCook());
         return "cook_coupons";
     }
@@ -46,6 +47,7 @@ public class PersonalController {
         }else{
             coupon.setCouponStatusEnum(CouponStatusEnum.DELIVERY);
         }
+        couponService.saveCoupon(coupon);
         model.addAttribute("coupons", couponService.getAllCouponsForCourier());
         return "courier_coupons";
     }
