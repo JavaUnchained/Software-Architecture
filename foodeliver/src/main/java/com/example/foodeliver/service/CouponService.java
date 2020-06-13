@@ -19,6 +19,18 @@ public class CouponService {
     @Autowired
     private CouponRepository couponRepository;
 
+    public Coupon getCouponById(Long id){
+        return couponRepository.findById(id).get();
+    }
+
+    public List<Coupon> getAllCouponsForCook(){
+        return couponRepository.findAllByCouponStatusEnum_Awaiting();
+    }
+
+    public List<Coupon> getAllCouponsForCourier() {
+        return couponRepository.findAllByCouponStatusEnum_CookedAndCouponStatusEnum_BackDellivered();
+    }
+
     public Coupon couponFactroyMethod(String name, CouponStatusEnum couponStatusEnum, Adress adress, LocalDate shippingDate){
         return new Coupon(name,  couponStatusEnum, adress, shippingDate);
     }
