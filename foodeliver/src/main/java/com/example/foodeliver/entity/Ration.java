@@ -1,12 +1,15 @@
 package com.example.foodeliver.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Table(name = "ration")
+@Getter @Setter
 @NoArgsConstructor
 public class Ration {
     @Id

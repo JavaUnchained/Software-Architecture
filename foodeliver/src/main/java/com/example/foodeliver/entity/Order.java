@@ -12,15 +12,16 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "order")
-@Getter @Setter
+@Table(name = "ord")
+@Getter
+@Setter
 @NoArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "status", nullable = false, unique = false)
+    @Column(name = "o_status")
     @Enumerated(EnumType.STRING)
     private OrderPayStatus status;
 
@@ -43,10 +44,9 @@ public class Order {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public Order(OrderPayStatus status,Ration ration,Adress adress,
+    public Order(OrderPayStatus status,Adress adress,
                  LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum ) {
-        this.status = status;
-        this.ration = ration;
+//        this.status = status;
         this.adress = adress;
         this.shippingDate = shippingDate;
         this.subscrabeStatusEnum = subscrabeStatusEnum;
