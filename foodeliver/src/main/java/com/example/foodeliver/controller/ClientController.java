@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.jws.WebParam;
@@ -30,6 +31,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
+@RequestMapping("/client")
 public class ClientController {
     @Autowired
     private OrderService orderService;

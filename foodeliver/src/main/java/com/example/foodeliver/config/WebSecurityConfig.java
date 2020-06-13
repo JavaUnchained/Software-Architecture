@@ -43,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/registration").anonymous()
-                .antMatchers("/index/**").hasRole("OPERATOR")
-                .antMatchers("/index/**").hasRole("CLIENT")
+                .antMatchers("/operator/**").hasRole("OPERATOR")
+                .antMatchers("/client/**").hasRole("CLIENT")
                 .antMatchers("/index/**").hasRole("COURIER")
                 .antMatchers("/index/**").hasRole("COOK")
                 .and()

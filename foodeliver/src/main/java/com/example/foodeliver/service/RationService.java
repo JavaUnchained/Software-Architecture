@@ -20,8 +20,6 @@ public class RationService {
         return new Ration(name, description, price);
     }
 
-
-
     public void saveRation(Ration ration){
         rationRepository.save(ration);
     }
