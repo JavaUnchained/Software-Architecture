@@ -21,7 +21,7 @@
     </thead>
     <tbody>
     <tr th:if="${orders.empty}">
-        <td colspan="2"> No Rations Available </td>
+        <td colspan="2"> No Orders Available </td>
     </tr>
     <tr th:each="order : ${orders}">
         <td><span th:text="${order.id}"> Id </span></td>

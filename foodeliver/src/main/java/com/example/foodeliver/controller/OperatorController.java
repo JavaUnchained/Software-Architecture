@@ -68,4 +68,10 @@ public class OperatorController {
         String currentPrincipalName = authentication.getName();
         return operatorService.getOperatorByUsername(currentPrincipalName);
     }
+
+    @GetMapping("/operator_coupons")
+    public String operatorCoupons(Model model) {
+        model.addAttribute("coupons", couponService.getAllCoupons());
+        return "operator_coupons";
+    }
 }
