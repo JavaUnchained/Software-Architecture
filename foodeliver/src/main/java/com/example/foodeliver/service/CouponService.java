@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,11 +25,16 @@ public class CouponService {
     }
 
     public List<Coupon> getAllCouponsForCook(){
-        return couponRepository.findAllByCouponStatusEnum_Awaiting();
+        return couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.AWAITING);
     }
 
     public List<Coupon> getAllCouponsForCourier() {
-        return couponRepository.findAllByCouponStatusEnum_CookedAndCouponStatusEnum_BackDellivered();
+        List<Coupon> coupons1 = couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.COOKED);
+        List<Coupon> coupons2 = couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.REFUND);
+        List<Coupon> couponsFinal = new ArrayList<>();
+        couponsFinal.addAll(coupons1);
+        couponsFinal.addAll(coupons2);
+        return couponsFinal;
     }
 
     public Coupon couponFactroyMethod(String name, CouponStatusEnum couponStatusEnum, Adress adress, LocalDate shippingDate){
