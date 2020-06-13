@@ -90,7 +90,8 @@ public class ClientController {
     }
 
     @PostMapping("/refund")
-    public String postRefund(Model model) {
+    public String postRefund(@RequestParam Long id, Model model) {
+        orderService.orderById(id);
 
         return "refund";
     }

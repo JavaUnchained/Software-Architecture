@@ -63,6 +63,8 @@ public class OperatorController {
         }
 
         operator.getAccount().setBalance(operatorBalance);
+        operatorService.saveOperatorState(operator);
+
         Adress adress = order.getAdress();
         String name = order.getRation().getRationName();
         LocalDate shipingDate = order.getShippingDate();
