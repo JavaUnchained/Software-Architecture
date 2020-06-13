@@ -1,4 +1,7 @@
 package com.example.foodeliver.repository;
 
-public interface AdressRepository {
+import com.example.foodeliver.entity.Adress;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdressRepository extends JpaRepository<Adress, Long> {
 }
