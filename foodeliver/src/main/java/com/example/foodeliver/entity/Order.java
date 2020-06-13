@@ -46,7 +46,7 @@ public class Order {
 
     public Order(OrderPayStatus status,Adress adress,
                  LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum ) {
-//        this.status = status;
+        this.status = status;
         this.adress = adress;
         this.shippingDate = shippingDate;
         this.subscrabeStatusEnum = subscrabeStatusEnum;

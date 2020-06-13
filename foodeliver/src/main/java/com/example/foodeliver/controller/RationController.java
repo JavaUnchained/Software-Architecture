@@ -2,6 +2,7 @@ package com.example.foodeliver.controller;
 
 import com.example.foodeliver.entity.Ration;
 import com.example.foodeliver.repository.RationRepository;
+import com.example.foodeliver.service.RationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class RationController {
     @Autowired
-    private RationRepository rationRepository;
+    private RationService rationService;
 
     @GetMapping("/rations")
     public String rations(Model model) {
-        model.addAttribute("rations", rationRepository.findAll());
+        model.addAttribute("rations", rationService.getAllRations());
         return "rations";
     }
 
@@ -25,9 +26,10 @@ public class RationController {
                                 @RequestParam Double price,
                                 @RequestParam String description,
                                 Model model) {
-        Ration ration = new Ration(name,description,price);
-        rationRepository.save(ration);
-        model.addAttribute("rations", rationRepository.findAll());
+        Ration ration = rationService.rationFactoryMethod(name,price,description);
+        rationService.saveRation(ration);
+
+        model.addAttribute("rations", rationService.getAllRations());
         return "rations";
     }
 }
