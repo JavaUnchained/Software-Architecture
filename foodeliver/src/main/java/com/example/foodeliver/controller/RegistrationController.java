@@ -1,7 +1,9 @@
 package com.example.foodeliver.controller;
 
+import com.example.foodeliver.entity.Account;
 import com.example.foodeliver.entity.users.Client;
 import com.example.foodeliver.entity.users.Role;
+import com.example.foodeliver.service.AccountService;
 import com.example.foodeliver.service.CourierService;
 import com.example.foodeliver.service.ClientService;
 import com.example.foodeliver.service.RoleService;
@@ -28,19 +30,28 @@ public class RegistrationController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private AccountService accountService;
+
     @GetMapping("/registration")
     public String registration() {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String registration(@RequestParam String surname, @RequestParam String name, @RequestParam String phoneNumber,
-                               @RequestParam String username, @RequestParam String password) {
+    public String registration(@RequestParam String username, @RequestParam String password,
+                               @RequestParam String name, @RequestParam String surname,
+                               @RequestParam String phoneNumber, @RequestParam Integer account) {
+
+        Double balance = account.doubleValue();
+        Account account1 = accountService.accountFactoryMethod(balance);
+
         Client client = new Client();
         client.setSurname(surname);
         client.setName(name);
         client.setPhoneNumber(phoneNumber);
         client.setUsername(username);
+        client.setAccount(account1);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         client.setPassword(encoder.encode(password));
@@ -48,6 +59,7 @@ public class RegistrationController {
         client.setRoleId(role);
 
         clientService.saveClient(client);
+
         return "redirect:/index";
     }
 
