@@ -20,8 +20,14 @@ public class RationService {
         return new Ration(name, description, price);
     }
 
+
+
     public void saveRation(Ration ration){
         rationRepository.save(ration);
+    }
+
+    public Ration getRationByName(String name){
+        return rationRepository.getRationByRationName(name);
     }
 
     public List<Ration> getAllRations(){

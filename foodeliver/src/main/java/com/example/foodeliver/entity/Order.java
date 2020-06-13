@@ -45,10 +45,11 @@ public class Order {
     private Client client;
 
     public Order(OrderPayStatus status,Adress adress,
-                 LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum ) {
+                 LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum, Ration ration) {
         this.status = status;
         this.adress = adress;
         this.shippingDate = shippingDate;
         this.subscrabeStatusEnum = subscrabeStatusEnum;
+        this.ration = ration;
     }
 }

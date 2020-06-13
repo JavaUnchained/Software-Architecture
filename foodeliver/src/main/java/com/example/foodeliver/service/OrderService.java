@@ -2,6 +2,7 @@ package com.example.foodeliver.service;
 
 import com.example.foodeliver.entity.Adress;
 import com.example.foodeliver.entity.Order;
+import com.example.foodeliver.entity.Ration;
 import com.example.foodeliver.entity.status.OrderPayStatus;
 import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
 import com.example.foodeliver.repository.OrderRepository;
@@ -20,9 +21,9 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
-    public Order orderFactoryMethod(OrderPayStatus status,Adress adress,
-                                     LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum){
-        return new Order(status,adress,shippingDate,subscrabeStatusEnum);
+    public Order orderFactoryMethod(OrderPayStatus status, Adress adress,
+                                    LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum, Ration ration){
+        return new Order(status,adress,shippingDate,subscrabeStatusEnum,ration);
     }
 
     public void saveOrder(Order order){
