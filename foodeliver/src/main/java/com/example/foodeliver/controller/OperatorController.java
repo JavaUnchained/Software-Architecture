@@ -3,13 +3,18 @@ package com.example.foodeliver.controller;
 import com.example.foodeliver.entity.Adress;
 import com.example.foodeliver.entity.Coupon;
 import com.example.foodeliver.entity.Order;
+import com.example.foodeliver.entity.Ration;
 import com.example.foodeliver.entity.status.CouponStatusEnum;
 import com.example.foodeliver.entity.status.OrderPayStatus;
 import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
 import com.example.foodeliver.entity.users.Operator;
+import com.example.foodeliver.repository.RationRepository;
 import com.example.foodeliver.service.CouponService;
 import com.example.foodeliver.service.OperatorService;
 import com.example.foodeliver.service.OrderService;
+import com.example.foodeliver.service.RationService;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +29,7 @@ import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/operator")
+@Getter @Setter
 public class OperatorController {
 
     @Autowired
@@ -101,4 +107,28 @@ public class OperatorController {
         return operatorService.getOperatorByUsername(currentPrincipalName);
     }
 
+    /*Наполнение рационов*/
+    @Autowired
+    private RationService rationService;
+//    @Autowired
+//    private RationRepository rationRepository;
+
+    @GetMapping("/rations")
+    public String rations(Model model) {
+        model.addAttribute("rations", rationService.getAllRations());
+        return "rations";
+    }
+
+    @PostMapping("/rations")
+    public String rationsSumbit(@RequestParam String name,
+                                @RequestParam Double price,
+                                @RequestParam String description,
+                                Model model) {
+//        Ration ration = rationService.rationFactoryMethod(name,price,description);
+        Ration ration = rationService.rationFactoryMethod(name,price,description);
+        rationService.saveRation(ration);
+
+        model.addAttribute("rations", rationService.getAllRations());
+        return "rations";
+    }
 }

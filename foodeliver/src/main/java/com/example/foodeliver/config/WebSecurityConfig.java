@@ -45,12 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").anonymous()
                 .antMatchers("/operator/**").hasRole("OPERATOR")
                 .antMatchers("/client/**").hasRole("CLIENT")
-                .antMatchers("/index/**").hasRole("COURIER")
-                .antMatchers("/index/**").hasRole("COOK")
+                .antMatchers("/courier/**").hasRole("COURIER")
+                .antMatchers("/cook/**").hasRole("COOK")
                 .and()
                 .formLogin().permitAll()
                 .and()
-                .logout().permitAll();
+                .logout().permitAll().and().csrf().disable();
 
 
     }

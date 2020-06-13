@@ -74,11 +74,14 @@ public class ClientController {
         Client client = getCurrentClient();
         Double balance  = client.getAccount().getBalance() - ration.getPrice();
 
+        List<Order> orders =client.getOrders();
+        orders.add(order);
+
         client.getAccount().setBalance(balance);
-        client.getOrders().add(order);
+        client.setOrders(orders);
         clientService.saveClient(client);
 
-        model.addAttribute("orders", client.getOrders());
+        model.addAttribute("orders", rationService.getAllRations());
         model.addAttribute("rations", rationService.getAllRations());
         return "client_order";
     }
@@ -86,8 +89,8 @@ public class ClientController {
     @GetMapping("/refund")
     public String getRefund(Model model) {
         Client client = getCurrentClient();
-        List<Order> clientOrders = client.getOrders();
-        model.addAttribute("orders", clientOrders);
+//        List<Order> clientOrders = client.getOrders();
+        model.addAttribute("orders", orderService.getAllOrders());
         return "refund";
     }
 
@@ -103,7 +106,7 @@ public class ClientController {
         order.setStatus(OrderPayStatus.REFUNDABLE);
         orderService.saveOrder(order);
 
-        model.addAttribute("orders", client.getOrders());
+        model.addAttribute("orders", orderService.getAllOrders());
         return "refund";
     }
 

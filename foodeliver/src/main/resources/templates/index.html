@@ -15,19 +15,19 @@
         <h4><a href="/registration">Sign up</a></h4>
     </div>
     <div sec:authorize="hasRole('ROLE_OPERATOR')">
-        <a href="/rations">Add ration</a>
-        <a href="/operator_order">Orders</a>
-        <a href="/operator_coupons">Coupons</a>
+        <a href="/operator/rations">Add ration</a>
+        <a href="/operator/operator_order">Orders</a>
+        <a href="/operator/operator_coupons">Coupons</a>
     </div>
     <div sec:authorize="hasRole('ROLE_CLIENT')">
-        <a href="/client_order">Make an order</a>
-        <a href="/refund">Make a refund</a>
+        <a href="/client/client_order">Make an order</a>
+        <a href="/client/refund">Make a refund</a>
     </div>
     <div sec:authorize="hasRole('ROLE_COOK')">
-        <a href="/cook_coupons">Cooking coupons</a>
+        <a href="/cook/cook_coupons">Cooking coupons</a>
     </div>
     <div sec:authorize="hasRole('ROLE_COURIER')">
-        <a href="/courier_coupons">Delivery coupons</a>
+        <a href="/courier/courier_coupons">Delivery coupons</a>
     </div>
 </body>
 </html>
