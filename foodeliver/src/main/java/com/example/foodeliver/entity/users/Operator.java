@@ -3,7 +3,9 @@ package com.example.foodeliver.entity.users;
 import com.example.foodeliver.entity.Account;
 import com.example.foodeliver.entity.Coupon;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "operator")
-@Data
+@Getter @Setter
 @NoArgsConstructor
 public class Operator extends User {
 
