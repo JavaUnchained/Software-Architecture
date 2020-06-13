@@ -1,8 +1,5 @@
 package com.example.foodeliver;
 
-import com.example.foodeliver.entity.Adress;
-import com.example.foodeliver.entity.users.Courier;
-import com.example.foodeliver.entity.users.Role;
 import com.example.foodeliver.repository.ClientRepository;
 import com.example.foodeliver.repository.CourierRepository;
 import com.example.foodeliver.repository.OperatorRepository;

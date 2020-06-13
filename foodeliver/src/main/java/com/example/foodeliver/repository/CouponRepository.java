@@ -1,7 +1,7 @@
 package com.example.foodeliver.repository;
 
-import com.example.foodeliver.entity.Coupon;
-import com.example.foodeliver.entity.status.CouponStatusEnum;
+import com.example.foodeliver.domain.Coupon;
+import com.example.foodeliver.domain.status.CouponStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

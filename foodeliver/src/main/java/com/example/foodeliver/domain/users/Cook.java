@@ -1,11 +1,10 @@
-package com.example.foodeliver.entity.users;
+package com.example.foodeliver.domain.users;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "cook")

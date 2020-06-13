@@ -1,6 +1,6 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.users.User;
+import com.example.foodeliver.domain.users.User;
 import com.example.foodeliver.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

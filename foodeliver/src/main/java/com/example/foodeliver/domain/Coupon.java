@@ -1,12 +1,9 @@
-package com.example.foodeliver.entity;
+package com.example.foodeliver.domain;
 
-import com.example.foodeliver.entity.status.CouponStatusEnum;
-import com.example.foodeliver.entity.users.Operator;
-import lombok.AllArgsConstructor;
+import com.example.foodeliver.domain.status.CouponStatusEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;

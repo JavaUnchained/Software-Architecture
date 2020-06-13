@@ -1,9 +1,7 @@
 package com.example.foodeliver.repository;
 
-import com.example.foodeliver.entity.Order;
+import com.example.foodeliver.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 }

@@ -1,6 +1,6 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.users.Role;
+import com.example.foodeliver.domain.users.Role;
 import com.example.foodeliver.repository.RoleRepository;
 import lombok.Getter;
 import lombok.Setter;

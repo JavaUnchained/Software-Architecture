@@ -1,14 +1,13 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.entity.Adress;
-import com.example.foodeliver.entity.Coupon;
-import com.example.foodeliver.entity.Order;
-import com.example.foodeliver.entity.Ration;
-import com.example.foodeliver.entity.status.CouponStatusEnum;
-import com.example.foodeliver.entity.status.OrderPayStatus;
-import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
-import com.example.foodeliver.entity.users.Operator;
-import com.example.foodeliver.repository.RationRepository;
+import com.example.foodeliver.domain.Adress;
+import com.example.foodeliver.domain.Coupon;
+import com.example.foodeliver.domain.Order;
+import com.example.foodeliver.domain.Ration;
+import com.example.foodeliver.domain.status.CouponStatusEnum;
+import com.example.foodeliver.domain.status.OrderPayStatus;
+import com.example.foodeliver.domain.status.SubscrabeStatusEnum;
+import com.example.foodeliver.domain.users.Operator;
 import com.example.foodeliver.service.CouponService;
 import com.example.foodeliver.service.OperatorService;
 import com.example.foodeliver.service.OrderService;

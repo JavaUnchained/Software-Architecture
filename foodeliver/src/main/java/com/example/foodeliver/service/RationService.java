@@ -1,6 +1,6 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Ration;
+import com.example.foodeliver.domain.Ration;
 import com.example.foodeliver.repository.RationRepository;
 import lombok.Getter;
 import lombok.Setter;

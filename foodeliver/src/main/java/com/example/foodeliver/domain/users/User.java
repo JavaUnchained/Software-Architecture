@@ -1,4 +1,4 @@
-package com.example.foodeliver.entity.users;
+package com.example.foodeliver.domain.users;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

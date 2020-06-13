@@ -1,10 +1,10 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Adress;
-import com.example.foodeliver.entity.Order;
-import com.example.foodeliver.entity.Ration;
-import com.example.foodeliver.entity.status.OrderPayStatus;
-import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
+import com.example.foodeliver.domain.Adress;
+import com.example.foodeliver.domain.Order;
+import com.example.foodeliver.domain.Ration;
+import com.example.foodeliver.domain.status.OrderPayStatus;
+import com.example.foodeliver.domain.status.SubscrabeStatusEnum;
 import com.example.foodeliver.repository.OrderRepository;
 import lombok.Getter;
 import lombok.Setter;

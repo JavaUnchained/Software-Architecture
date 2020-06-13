@@ -1,8 +1,8 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Adress;
-import com.example.foodeliver.entity.Coupon;
-import com.example.foodeliver.entity.status.CouponStatusEnum;
+import com.example.foodeliver.domain.Adress;
+import com.example.foodeliver.domain.Coupon;
+import com.example.foodeliver.domain.status.CouponStatusEnum;
 import com.example.foodeliver.repository.CouponRepository;
 import lombok.Getter;
 import lombok.Setter;
