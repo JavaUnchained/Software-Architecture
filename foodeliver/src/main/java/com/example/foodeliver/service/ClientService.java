@@ -19,6 +19,7 @@ public class ClientService {
 
     public void saveClient(Client client) {
         clientRepository.save(client);
+
     }
 
     public Client getClientByUsername(String username) {

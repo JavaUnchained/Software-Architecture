@@ -5,6 +5,7 @@ import com.example.foodeliver.entity.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,15 +18,17 @@ import java.util.List;
 @NoArgsConstructor
 public class Client extends User {
 
-    public Client(String surname, String name, String phoneNumber, String username, String password, Role roleId, Account account) {
-        super(surname, name, phoneNumber, username, password, roleId);
-        this.account = account;
-    }
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
-    Account account;
+    private Account account;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "client", fetch = FetchType.EAGER)
     private List<Order> orders = new ArrayList<>();
+
+    public Client(@NotNull final String surname, @NotNull final String name,
+                  @NotNull final String phoneNumber, @NotNull final String username,
+                  @NotNull final String password, @NotNull final Role roleId, @NotNull final Account account) {
+        super(surname, name, phoneNumber, username, password, roleId);
+        this.account = account;
+    }
 }

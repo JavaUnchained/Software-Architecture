@@ -28,20 +28,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setPasswordEncoder(passwordEncoder());
         authProvider.setUserDetailsService(userDetailsService());
         return authProvider;
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+    protected void configure(final HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests()
                 .antMatchers("/registration").anonymous()
                 .antMatchers("/operator/**").hasRole("OPERATOR")
                 .antMatchers("/client/**").hasRole("CLIENT")

@@ -27,7 +27,7 @@ public class CourierController {
 
     @PostMapping("/courier_coupons")
     public String courierCouponsPost(@RequestParam Long id, Model model) {
-        Coupon coupon =  couponService.getCouponById(id);
+        final Coupon coupon =  couponService.getCouponById(id);
         if(coupon.getCouponStatusEnum() == CouponStatusEnum.BACK_DELLIVERED){
             coupon.setCouponStatusEnum(CouponStatusEnum.REFUND);
         }else{

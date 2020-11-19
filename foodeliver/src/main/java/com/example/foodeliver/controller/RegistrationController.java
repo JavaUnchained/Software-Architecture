@@ -1,20 +1,15 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.entity.Account;
-import com.example.foodeliver.entity.users.Client;
-import com.example.foodeliver.entity.users.Role;
-import com.example.foodeliver.service.AccountService;
-import com.example.foodeliver.service.CourierService;
-import com.example.foodeliver.service.ClientService;
-import com.example.foodeliver.service.RoleService;
+import com.example.foodeliver.service.RegistrationService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import static java.util.Objects.isNull;
 
 @Controller
 @Getter
@@ -22,16 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class RegistrationController {
 
     @Autowired
-    private ClientService clientService;
-
-    @Autowired
-    private CourierService courierService;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private AccountService accountService;
+    private RegistrationService registrationService;
 
     @GetMapping("/registration")
     public String registration() {
@@ -39,27 +25,14 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@RequestParam String username, @RequestParam String password,
-                               @RequestParam String name, @RequestParam String surname,
-                               @RequestParam String phoneNumber, @RequestParam Double account) {
-
-        Account account1 = accountService.accountFactoryMethod(account);
-
-        Client client = new Client();
-        client.setUsername(username);
-        client.setSurname(surname);
-        client.setName(name);
-        client.setPhoneNumber(phoneNumber);
-        client.setAccount(account1);
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        client.setPassword(encoder.encode(password));
-        Role role = roleService.getRoleByName("ROLE_CLIENT");
-        client.setRoleId(role);
-
-        clientService.saveClient(client);
-
+    public String registration(@RequestParam final String username, @RequestParam final String password,
+                               @RequestParam final String name, @RequestParam final String surname,
+                               @RequestParam final String phoneNumber, @RequestParam final Double account) {
+        if (isNull(username) || isNull(password) || isNull(name) || isNull(surname)
+                || isNull(phoneNumber) || isNull(account) || account >= 0){
+            throw new IllegalArgumentException("Invalid arguments");
+        }
+        registrationService.registrationNewUser(username, password, name, surname, phoneNumber, account);
         return "redirect:/";
     }
-
 }

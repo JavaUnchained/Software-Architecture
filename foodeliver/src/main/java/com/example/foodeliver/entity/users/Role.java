@@ -1,6 +1,7 @@
 package com.example.foodeliver.entity.users;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -23,7 +24,7 @@ public class Role {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId", fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
-    public Role(String name) {
+    public Role(@NotNull final String name) {
         this.name = name;
     }
 }

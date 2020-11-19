@@ -25,7 +25,7 @@ public class CoockController {
 
     @PostMapping("/cook_coupons")
     public String cookCouponsPost(@RequestParam Long id, Model model) {
-        Coupon coupon =  couponService.getCouponById(id);
+        final Coupon coupon =  couponService.getCouponById(id);
         coupon.setCouponStatusEnum(CouponStatusEnum.COOKED);
         couponService.saveCoupon(coupon);
         model.addAttribute("coupons", couponService.getAllCouponsForCook());

@@ -2,6 +2,7 @@ package com.example.foodeliver.entity.users;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 
@@ -16,8 +17,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "surname", nullable = false)
     private String surname;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "phone_number", unique = true, nullable = false)
@@ -26,9 +29,15 @@ public class User {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
-    public User(String surname, String name, String phoneNumber, String username, String password, Role roleId) {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role roleId;
+
+    public User(@NotNull final String surname, @NotNull final String name, @NotNull final String phoneNumber,
+                @NotNull final String username, @NotNull final String password, @NotNull final Role roleId) {
         this.surname = surname;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -36,9 +45,4 @@ public class User {
         this.password = password;
         this.roleId = roleId;
     }
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    private Role roleId;
-
 }

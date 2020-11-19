@@ -4,6 +4,7 @@ import com.example.foodeliver.entity.Account;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 
@@ -13,15 +14,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Operator extends User {
 
-    public Operator(String surname, String name, String phoneNumber, String username, String password, Role roleId, Account account) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+    public Operator(@NotNull final String surname, @NotNull final String name,
+                    @NotNull final String phoneNumber, @NotNull final String username,
+                    @NotNull final String password, @NotNull final Role roleId, @NotNull final Account account) {
         super(surname, name, phoneNumber, username, password, roleId);
         this.account = account;
     }
-
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "operator", fetch = FetchType.EAGER)
-//    private List<Coupon> orders = new ArrayList<>();
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    Account account;
 }

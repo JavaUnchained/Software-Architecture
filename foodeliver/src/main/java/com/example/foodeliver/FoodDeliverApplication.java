@@ -5,16 +5,14 @@ import com.example.foodeliver.repository.CourierRepository;
 import com.example.foodeliver.repository.OperatorRepository;
 import com.example.foodeliver.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FoodeliverApplication implements CommandLineRunner{
+public class FoodDeliverApplication {
 
     public static void main(String[] args) {
-
-        SpringApplication.run(FoodeliverApplication.class, args);
+        SpringApplication.run(FoodDeliverApplication.class, args);
     }
 
     @Autowired
@@ -26,8 +24,8 @@ public class FoodeliverApplication implements CommandLineRunner{
     @Autowired
     private RoleRepository roleRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
+//    @Override
+//    public void run(String... args) throws Exception {
 //        Role roleCourier = new Role("ROLE_COURIER");
 //        roleRepository.save(roleCourier);
 //        Role roleOperator = new Role("ROLE_OPERATOR");
@@ -46,6 +44,6 @@ public class FoodeliverApplication implements CommandLineRunner{
 //        courier1.setRoleId(roleCourier);
 //
 //        courierRepository.save(courier1);
-    }
+//    }
 
 }

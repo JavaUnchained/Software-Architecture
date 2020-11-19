@@ -1,6 +1,7 @@
 package com.example.foodeliver.entity.users;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -10,8 +11,8 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Courier extends User {
 
-    public Courier(String surname, String name, String phoneNumber,
-                   String username, String password, Role roleId) {
+    public Courier(@NotNull final String surname, @NotNull final String name, @NotNull final String phoneNumber,
+                   @NotNull final String username, @NotNull final String password, @NotNull final Role roleId) {
         super(surname, name, phoneNumber, username, password, roleId);
     }
 

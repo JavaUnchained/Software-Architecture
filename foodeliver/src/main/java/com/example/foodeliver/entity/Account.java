@@ -5,6 +5,7 @@ import com.example.foodeliver.entity.users.Operator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 
@@ -21,17 +22,15 @@ public class Account {
     @Column(name = "balance", nullable = false)
     private Double balance;
 
-    public Account(Double balance) {
-        this.balance = balance;
-    }
-
     @OneToOne(mappedBy = "account", cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
-    })
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Client passenger;
 
     @OneToOne(mappedBy = "account", cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
-    })
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Operator driver;
+
+    public Account(@NotNull final Double balance) {
+        this.balance = balance;
+    }
 }

@@ -6,6 +6,7 @@ import com.example.foodeliver.entity.users.Client;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,9 +21,16 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "o_status")
+    @Column(name = "o_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderPayStatus status;
+
+    @Column(name = "shipping_date", nullable = false)
+    private LocalDate shippingDate;
+
+    @Column(name = "subsribe", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private SubscrabeStatusEnum subscrabeStatusEnum;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ration_id")
@@ -32,19 +40,13 @@ public class Order {
     @JoinColumn(name = "adress_id")
     private Adress adress;
 
-    @Column(name = "shipping_date")
-    private LocalDate shippingDate;
-
-    @Column(name = "subsribe", nullable = false, unique = false)
-    @Enumerated(EnumType.STRING)
-    private SubscrabeStatusEnum subscrabeStatusEnum;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id")
     private Client client;
 
-    public Order(OrderPayStatus status,Adress adress,
-                 LocalDate shippingDate, SubscrabeStatusEnum subscrabeStatusEnum, Ration ration) {
+    public Order(@NotNull final OrderPayStatus status, @NotNull final Adress adress,
+                 @NotNull final LocalDate shippingDate, @NotNull final SubscrabeStatusEnum subscrabeStatusEnum,
+                 @NotNull final Ration ration) {
         this.status = status;
         this.adress = adress;
         this.shippingDate = shippingDate;
