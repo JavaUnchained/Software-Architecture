@@ -1,11 +1,11 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Adress;
-import com.example.foodeliver.entity.Order;
-import com.example.foodeliver.entity.Ration;
-import com.example.foodeliver.entity.status.OrderPayStatus;
-import com.example.foodeliver.entity.status.SubscribeStatusEnum;
-import com.example.foodeliver.repository.OrderRepository;
+import com.example.foodeliver.model.entity.Adress;
+import com.example.foodeliver.model.entity.Order;
+import com.example.foodeliver.model.entity.Ration;
+import com.example.foodeliver.model.entity.status.OrderPayStatus;
+import com.example.foodeliver.model.entity.status.SubscribeStatusEnum;
+import com.example.foodeliver.model.repository.OrderRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;

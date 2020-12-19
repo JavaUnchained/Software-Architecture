@@ -14,7 +14,6 @@ import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
-//@Import( {SpringDataRestConfiguration.class})
 public class SpringFoxConfig {
     @Bean
     public Docket api() {
@@ -26,9 +25,10 @@ public class SpringFoxConfig {
     }
 
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo("My REST API", "Some custom description of API.", "API TOS",
-                "Terms of service", new Contact("John Doe", "www.example.com", "myeaddress@company.com"),
-                "License of API", "API license URL", Collections.emptyList());
+        ApiInfo apiInfo = new ApiInfo("Food delivery service", "Course project.", "API TOS",
+                "Terms of service", new Contact("Andrey ", "www.example.com",
+                "myeaddress@company.com"), "License of API", "API license URL",
+                Collections.emptyList());
         return apiInfo;
     }
 }

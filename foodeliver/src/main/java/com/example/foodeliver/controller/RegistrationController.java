@@ -1,36 +1,28 @@
 package com.example.foodeliver.controller;
 
+import com.example.foodeliver.model.dto.UserRegistrationDTO;
 import com.example.foodeliver.service.RegistrationService;
-import lombok.Getter;
-import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import static java.util.Objects.isNull;
-
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class RegistrationController {
 
     @Autowired
     private RegistrationService registrationService;
 
-    @GetMapping("/registration")
-    public String registration() {
-        return "registration";
-    }
-
     @PostMapping("/registration")
-    public String registration(@RequestParam final String username, @RequestParam final String password,
-                               @RequestParam final String name, @RequestParam final String surname,
-                               @RequestParam final String phoneNumber, @RequestParam final Double account) {
-        if (isNull(username) || isNull(password) || isNull(name) || isNull(surname)
-                || isNull(phoneNumber) || isNull(account) || account >= 0){
-            throw new IllegalArgumentException("Invalid arguments");
-        }
-        registrationService.registrationNewUser(username, password, name, surname, phoneNumber, account);
-        return "redirect:/";
+    public ResponseEntity<?> registration(@RequestBody @NotNull final UserRegistrationDTO reg) {
+        if(!reg.isAllFieldsNonNull()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        registrationService.registrationNewUser(reg.getUsername(), reg.getPassword(),
+                reg.getName(), reg.getSurname(), reg.getPhoneNumber(), reg.getAccount());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

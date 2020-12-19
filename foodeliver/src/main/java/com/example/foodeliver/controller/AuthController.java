@@ -1,12 +1,10 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.auth.AuthRequest;
-import com.example.foodeliver.auth.AuthResponse;
-import com.example.foodeliver.entity.users.User;
-import com.example.foodeliver.repository.UserRepository;
-import com.example.foodeliver.service.JWT.JwtUtil;
-import com.example.foodeliver.service.UserDetail;
-import com.example.foodeliver.service.UserDetailService;
+import com.example.foodeliver.model.dto.AuthRequestDTO;
+import com.example.foodeliver.model.dto.AuthResponseDTO;
+import com.example.foodeliver.model.entity.users.User;
+import com.example.foodeliver.model.repository.UserRepository;
+import com.example.foodeliver.service.JWT.JwtUtilService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,13 +26,15 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authManager;
+
     @Autowired
-    private UserDetailsService detailService;
+    UserDetailsService detailService;
+
     @Autowired
     private UserRepository userRepository;
 
     @PostMapping("/auth")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody @NotNull final AuthRequest req) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody @NotNull final AuthRequestDTO req) throws Exception {
         final UserDetails details;
         final String username = req.getUsername();
         try {
@@ -45,10 +45,8 @@ public class AuthController {
         } catch (final UsernameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        String jwt = JwtUtil.generateToken(details);
         final User user = userRepository.getUserByUsername(username);
-        final String role = user.getRoleId().getName();
-        final Long id = user.getId();
-        return ResponseEntity.ok(new AuthResponse(jwt, role, id));
+        return ResponseEntity.ok(new AuthResponseDTO(JwtUtilService.generateToken(details),
+                user.getRoleId().getName(), user.getId()));
     }
 }

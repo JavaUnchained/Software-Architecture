@@ -1,9 +1,9 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Adress;
-import com.example.foodeliver.entity.Coupon;
-import com.example.foodeliver.entity.status.CouponStatusEnum;
-import com.example.foodeliver.repository.CouponRepository;
+import com.example.foodeliver.model.entity.Adress;
+import com.example.foodeliver.model.entity.Coupon;
+import com.example.foodeliver.model.entity.status.CouponStatusEnum;
+import com.example.foodeliver.model.repository.CouponRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
@@ -63,6 +63,8 @@ public class CouponService {
         }
         saveCoupon(coupon);
     }
+
+
 
     public void changeToCooked(@NotNull final Long id) {
         final Coupon coupon =  getCouponById(id);

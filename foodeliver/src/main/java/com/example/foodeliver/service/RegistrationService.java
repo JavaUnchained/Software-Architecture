@@ -1,8 +1,7 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Account;
-import com.example.foodeliver.entity.users.Client;
-import com.example.foodeliver.entity.users.Role;
+import com.example.foodeliver.model.entity.Account;
+import com.example.foodeliver.model.entity.users.Role;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

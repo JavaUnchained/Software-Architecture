@@ -1,9 +1,9 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.dto.RationDTO;
-import com.example.foodeliver.entity.Coupon;
-import com.example.foodeliver.entity.Order;
-import com.example.foodeliver.entity.Ration;
+import com.example.foodeliver.model.dto.RationDTO;
+import com.example.foodeliver.model.entity.Coupon;
+import com.example.foodeliver.model.entity.Order;
+import com.example.foodeliver.model.entity.Ration;
 import com.example.foodeliver.service.CouponService;
 import com.example.foodeliver.service.OperatorService;
 import com.example.foodeliver.service.OrderService;
@@ -14,7 +14,14 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -33,15 +40,21 @@ public class OperatorController {
     @Autowired
     private RationService rationService;
 
-    @GetMapping("/operator_order")
+    @GetMapping("/orders")
     public @NotNull List<Order> operatorOrder() {
         return orderService.getAllOrders();
     }
 
-    @PostMapping("/operator_order")
-    public @NotNull List<Order> rationsSubmit(@NotNull @RequestParam final Long id) {
+    @PostMapping("/orders")
+    public @NotNull ResponseEntity<?> orderSubmit(@NotNull @RequestParam final Long id) {
         operatorService.submit(id);
-        return orderService.getAllOrders();
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete_order")
+    public @NotNull ResponseEntity<?> deleteOrder(@NotNull @RequestParam final Long id) {
+        rationService.getRationRepository().deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/operator_coupons")
@@ -55,12 +68,15 @@ public class OperatorController {
     }
 
     @PostMapping("/rations")
-    public @NotNull ResponseEntity<Object> rationsSubmit(@RequestBody @NotNull final RationDTO rationDTO) {
-        rationService.saveRation(
-                rationService.getRationOne(
-                        rationDTO.getName(),
-                        rationDTO.getPrice(),
-                        rationDTO.getDescription()));
+    public @NotNull ResponseEntity<?> rationsSubmit(@RequestBody @NotNull final RationDTO rd) {
+        if(!rd.isAllFieldNonNull()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        rationService.saveRation(rationService.getRationOne(rd.getName(), rd.getPrice(), rd.getDescription()));
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete_ration")
+    public @NotNull ResponseEntity<?> deleteRation(@RequestParam @NotNull final Long id) {
+        rationService.getRationRepository().deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

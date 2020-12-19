@@ -1,7 +1,7 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Ration;
-import com.example.foodeliver.repository.RationRepository;
+import com.example.foodeliver.model.entity.Ration;
+import com.example.foodeliver.model.repository.RationRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

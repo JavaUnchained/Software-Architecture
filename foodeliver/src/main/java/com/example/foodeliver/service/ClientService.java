@@ -1,16 +1,18 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.Adress;
-import com.example.foodeliver.entity.Order;
-import com.example.foodeliver.entity.Ration;
-import com.example.foodeliver.entity.status.OrderPayStatus;
-import com.example.foodeliver.entity.status.SubscribeStatusEnum;
-import com.example.foodeliver.entity.users.Client;
-import com.example.foodeliver.repository.ClientRepository;
+import com.example.foodeliver.model.entity.Adress;
+import com.example.foodeliver.model.entity.Order;
+import com.example.foodeliver.model.entity.Ration;
+import com.example.foodeliver.model.entity.status.OrderPayStatus;
+import com.example.foodeliver.model.entity.status.SubscribeStatusEnum;
+import com.example.foodeliver.model.entity.users.Client;
+import com.example.foodeliver.model.repository.ClientRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -74,6 +76,10 @@ public class ClientService {
 //        client.getAccount().setBalance(balance);
 //        client.setOrders(orders);
 //        saveClient(client);
+    }
+    public Client getCurrentClient() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return clientRepository.getClientByUsername(authentication.getName());
     }
 
 }

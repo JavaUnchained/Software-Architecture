@@ -1,7 +1,7 @@
 package com.example.foodeliver.config;
 
-import com.example.foodeliver.service.JWT.JwtFilter;
-import com.example.foodeliver.service.UserDetailService;
+import com.example.foodeliver.service.JWT.JwtFilterService;
+import com.example.foodeliver.service.DetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private JwtFilter jwtRequestFilter;
+    private JwtFilterService jwtRequestFilter;
 
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors();
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         httpSecurity.authorizeRequests()
                 .antMatchers("/registration").anonymous()
                 .antMatchers("/operator/**").hasRole("OPERATOR")
@@ -37,8 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
-
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailService();
+        return new DetailService();
     }
 
     @Bean

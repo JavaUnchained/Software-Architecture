@@ -1,7 +1,7 @@
 package com.example.foodeliver.service;
 
-import com.example.foodeliver.entity.users.Role;
-import com.example.foodeliver.repository.RoleRepository;
+import com.example.foodeliver.model.entity.users.Role;
+import com.example.foodeliver.model.repository.RoleRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;

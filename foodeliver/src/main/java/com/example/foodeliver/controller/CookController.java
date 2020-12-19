@@ -1,9 +1,11 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.entity.Coupon;
+import com.example.foodeliver.model.entity.Coupon;
 import com.example.foodeliver.service.CouponService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +23,9 @@ public class CookController {
     }
 
     @PostMapping("/cook_coupons")
-    public @NotNull List<Coupon> cookCouponsPost(@NotNull @RequestParam final Long id) {
+    public @NotNull ResponseEntity<?> cookCouponsPost(@NotNull @RequestParam final Long id) {
         couponService.changeToCooked(id);
-        return couponService.getAllCouponsForCook();
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 }
