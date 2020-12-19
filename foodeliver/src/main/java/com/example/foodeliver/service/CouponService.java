@@ -6,6 +6,7 @@ import com.example.foodeliver.entity.status.CouponStatusEnum;
 import com.example.foodeliver.repository.CouponRepository;
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,32 +21,52 @@ public class CouponService {
     @Autowired
     private CouponRepository couponRepository;
 
-    public Coupon getCouponById(Long id){
-        return couponRepository.findById(id).get();
+    @NotNull
+    public Coupon getCouponById(@NotNull final Long id){
+        return couponRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     public List<Coupon> getAllCouponsForCook(){
         return couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.AWAITING);
     }
 
+    @NotNull
     public List<Coupon> getAllCouponsForCourier() {
-        List<Coupon> coupons1 = couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.COOKED);
-        List<Coupon> coupons2 = couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.REFUND);
-        List<Coupon> couponsFinal = new ArrayList<>();
-        couponsFinal.addAll(coupons1);
-        couponsFinal.addAll(coupons2);
-        return couponsFinal;
+        final List<Coupon> cookedAndRefunded = new ArrayList<>();
+        cookedAndRefunded.addAll(couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.COOKED));
+        cookedAndRefunded.addAll(couponRepository.getAllByCouponStatusEnum(CouponStatusEnum.REFUND));
+        return cookedAndRefunded;
     }
 
-    public Coupon couponFactroyMethod(String name, CouponStatusEnum couponStatusEnum, Adress adress, LocalDate shippingDate){
+    @NotNull
+    public static Coupon couponFactoryMethod(@NotNull final String name,
+                                             @NotNull final CouponStatusEnum couponStatusEnum,
+                                             @NotNull final Adress adress,
+                                             @NotNull final LocalDate shippingDate){
         return new Coupon(name,  couponStatusEnum, adress, shippingDate);
     }
 
-    public void saveCoupon(Coupon coupon) {
+    public void saveCoupon(@NotNull final Coupon coupon) {
         couponRepository.save(coupon);
     }
 
     public List<Coupon> getAllCoupons(){
         return couponRepository.findAll();
+    }
+
+    public void changeToRefundOrDelivery(@NotNull final Long id) {
+        final Coupon coupon =  getCouponById(id);
+        if(coupon.getCouponStatusEnum() == CouponStatusEnum.BACK_DELLIVERED){
+            coupon.setCouponStatusEnum(CouponStatusEnum.REFUND);
+        }else{
+            coupon.setCouponStatusEnum(CouponStatusEnum.DELIVERY);
+        }
+        saveCoupon(coupon);
+    }
+
+    public void changeToCooked(@NotNull final Long id) {
+        final Coupon coupon =  getCouponById(id);
+        coupon.setCouponStatusEnum(CouponStatusEnum.COOKED);
+        saveCoupon(coupon);
     }
 }

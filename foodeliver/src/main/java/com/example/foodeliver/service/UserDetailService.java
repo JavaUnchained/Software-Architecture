@@ -2,6 +2,7 @@ package com.example.foodeliver.service;
 
 import com.example.foodeliver.entity.users.User;
 import com.example.foodeliver.repository.UserRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,11 +14,10 @@ public class UserDetailService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userRepository.getUserByUsername(s);
-        if (user == null) {
-            throw new UsernameNotFoundException("Could not find user");
-        }
+    @NotNull
+    public UserDetails loadUserByUsername(final String s) throws UsernameNotFoundException {
+        final User user = userRepository.getUserByUsername(s);
+        if (user == null) throw new UsernameNotFoundException("Could not find user");
         return new UserDetail(user);
     }
 }

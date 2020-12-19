@@ -1,7 +1,7 @@
 package com.example.foodeliver.entity;
 
 import com.example.foodeliver.entity.status.OrderPayStatus;
-import com.example.foodeliver.entity.status.SubscrabeStatusEnum;
+import com.example.foodeliver.entity.status.SubscribeStatusEnum;
 import com.example.foodeliver.entity.users.Client;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class Order {
 
     @Column(name = "subsribe", nullable = false)
     @Enumerated(EnumType.STRING)
-    private SubscrabeStatusEnum subscrabeStatusEnum;
+    private SubscribeStatusEnum subscrabeStatusEnum;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ration_id")
@@ -45,7 +45,7 @@ public class Order {
     private Client client;
 
     public Order(@NotNull final OrderPayStatus status, @NotNull final Adress adress,
-                 @NotNull final LocalDate shippingDate, @NotNull final SubscrabeStatusEnum subscrabeStatusEnum,
+                 @NotNull final LocalDate shippingDate, @NotNull final SubscribeStatusEnum subscrabeStatusEnum,
                  @NotNull final Ration ration) {
         this.status = status;
         this.adress = adress;

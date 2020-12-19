@@ -9,22 +9,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/courier")
+@RequestMapping("/cook")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CourierController {
-
+public class CookController {
     @Autowired
     private CouponService couponService;
 
-    @GetMapping("/courier_coupons")
-    public @NotNull List<Coupon> courierCouponsGet() {
-        return couponService.getAllCouponsForCourier();
+    @GetMapping("/cook_coupons")
+    public @NotNull List<Coupon> cookCouponsGet() {
+        return couponService.getAllCouponsForCook();
     }
 
-
-    @PostMapping("/courier_coupons")
-    public @NotNull List<Coupon> courierCouponsPost(@RequestParam final Long id) {
-        couponService.changeToRefundOrDelivery(id);
-        return couponService.getAllCouponsForCourier();
+    @PostMapping("/cook_coupons")
+    public @NotNull List<Coupon> cookCouponsPost(@NotNull @RequestParam final Long id) {
+        couponService.changeToCooked(id);
+        return couponService.getAllCouponsForCook();
     }
+
 }

@@ -1,5 +1,5 @@
 package com.example.foodeliver.entity.status;
 
-public enum SubscrabeStatusEnum {
+public enum SubscribeStatusEnum {
     SINGLE, SUBSCRIBE
 }

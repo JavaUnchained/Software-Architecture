@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static java.util.Objects.isNull;
 
 @Controller
-@Getter
-@Setter
 public class RegistrationController {
 
     @Autowired

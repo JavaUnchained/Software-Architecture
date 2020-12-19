@@ -16,7 +16,7 @@ public class RationService {
     @Autowired
     RationRepository rationRepository;
 
-    public Ration rationFactoryMethod(String name,Double price, String description){
+    public Ration getRationOne(String name, Double price, String description){
         return new Ration(name, description, price);
     }
 
