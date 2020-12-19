@@ -29,9 +29,9 @@ public class ClientController {
 
     @GetMapping("/client_order")
     public Map<String, Object> clientOrder(){
-        final Client client = clientService.getCurrentClient();
         final Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("orders", orderService.getAllOrders());
+        modelMap.put("orders", orderService.getOrderRepository()
+                .getAllByClient_Name(clientService.getCurrentClient().getName()));
         modelMap.put("rations", rationService.getAllRations());
         return modelMap;
     }
@@ -40,10 +40,7 @@ public class ClientController {
     public ResponseEntity<?> clientOrderSubmit(@RequestBody @NotNull final ClientOrderDto order) {
         if(!order.isAllFieldNonNull()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         clientService.makeOrder(order.getName(), order.getAddress(), order.getStripping(), order.getSubscribed());
-        final Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("orders", orderService.getAllOrders());
-        modelMap.put("rations", rationService.getAllRations());
-        return null;
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/refund")

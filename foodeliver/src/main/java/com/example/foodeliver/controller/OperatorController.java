@@ -70,7 +70,7 @@ public class OperatorController {
     @PostMapping("/rations")
     public @NotNull ResponseEntity<?> rationsSubmit(@RequestBody @NotNull final RationDTO rd) {
         if(!rd.isAllFieldNonNull()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        rationService.saveRation(rationService.getRationOne(rd.getName(), rd.getPrice(), rd.getDescription()));
+        rationService.saveRation(RationService.getRationOne(rd.getName(), rd.getPrice(), rd.getDescription()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

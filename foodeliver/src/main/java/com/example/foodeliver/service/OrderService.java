@@ -27,9 +27,9 @@ public class OrderService {
     public static Order getOrderOne(@NotNull final OrderPayStatus status,
                                     @NotNull final Adress adress,
                                     @NotNull final LocalDate shippingDate,
-                                    @NotNull final SubscribeStatusEnum subscrabeStatusEnum,
+                                    @NotNull final SubscribeStatusEnum subscribeStatusEnum,
                                     @NotNull final Ration ration){
-        return new Order(status,adress,shippingDate,subscrabeStatusEnum,ration);
+        return new Order(status,adress,shippingDate,subscribeStatusEnum,ration);
     }
 
     @NotNull

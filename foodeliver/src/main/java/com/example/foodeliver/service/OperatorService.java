@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -37,30 +38,30 @@ public class OperatorService {
 
     public void submit(@NotNull final Long id) {
         final Order order = orderService.orderById(id);
-//        final Operator operator = getCurrentOperator();
+        final Operator operator = getCurrentOperator();
         final Double operatorBalance;
         final CouponStatusEnum couponStatusEnum;
         switch (order.getStatus()) {
             case PAID:
                 order.setStatus(OrderPayStatus.CONFIRMED);
                 couponStatusEnum = CouponStatusEnum.AWAITING;
-//                operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
+                operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
                 break;
             case REFUNDED:
                 couponStatusEnum = CouponStatusEnum.BACK_DELLIVERED;
-//                operatorBalance = operator.getAccount().getBalance() - order.getRation().getPrice();
+                operatorBalance = operator.getAccount().getBalance() - order.getRation().getPrice();
                 break;
             default:
                 couponStatusEnum = CouponStatusEnum.DONE;
-//                operatorBalance = operator.getAccount().getBalance();
+                operatorBalance = operator.getAccount().getBalance();
         }
         final LocalDate shippingDate = order.getShippingDate();
         if(isExtendSubscribe(order.getStatus(), order.getSubscrabeStatusEnum())) {
             order.setShippingDate(shippingDate.plusDays(ADD_MONTH));
             order.setStatus(OrderPayStatus.PAID);
         }
-//        operator.getAccount().setBalance(operatorBalance);
-//        saveOperatorState(operator);
+        operator.getAccount().setBalance(operatorBalance);
+        saveOperatorState(operator);
         orderService.saveOrder(order);
         couponService.saveCoupon(CouponService.couponFactoryMethod(order.getRation().getRationName(),
                 couponStatusEnum, order.getAdress(), shippingDate));
@@ -72,8 +73,8 @@ public class OperatorService {
                 (status == OrderPayStatus.PAID || status == OrderPayStatus.CONFIRMED);
     }
 
-//    @NotNull
-//    public Operator getCurrentOperator() {
-//        return getOperatorByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-//    }
+    @NotNull
+    public Operator getCurrentOperator() {
+        return getOperatorByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
 }
