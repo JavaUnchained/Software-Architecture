@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "operator")
 @Getter @Setter
 @NoArgsConstructor
 public class Operator extends User {

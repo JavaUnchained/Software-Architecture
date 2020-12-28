@@ -40,5 +40,4 @@ public class Coupon {
 
     LocalDate shippingDate;
 
-
 }

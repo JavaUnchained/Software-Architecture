@@ -1,8 +1,11 @@
 package com.example.foodeliver.service;
 
+import com.example.foodeliver.model.dto.CouponDTO;
 import com.example.foodeliver.model.entity.Adress;
 import com.example.foodeliver.model.entity.Coupon;
+import com.example.foodeliver.model.entity.Order;
 import com.example.foodeliver.model.entity.status.CouponStatusEnum;
+import com.example.foodeliver.model.entity.status.OrderPayStatus;
 import com.example.foodeliver.model.repository.CouponRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +23,8 @@ import java.util.List;
 public class CouponService {
     @Autowired
     private CouponRepository couponRepository;
+    @Autowired
+    private OrderService orderService;
 
     @NotNull
     public Coupon getCouponById(@NotNull final Long id){
@@ -56,6 +61,9 @@ public class CouponService {
 
     public void changeToRefundOrDelivery(@NotNull final Long id) {
         final Coupon coupon =  getCouponById(id);
+        final Order order = orderService.getOrderRepository().getByAdress(coupon.getAdress());
+        order.setStatus(OrderPayStatus.DONE);
+        orderService.getOrderRepository().save(order);
         if(coupon.getCouponStatusEnum() == CouponStatusEnum.BACK_DELLIVERED){
             coupon.setCouponStatusEnum(CouponStatusEnum.REFUND);
         }else{

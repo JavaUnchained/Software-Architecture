@@ -1,9 +1,8 @@
 package com.example.foodeliver.controller;
 
-import com.example.foodeliver.model.dto.RationDTO;
-import com.example.foodeliver.model.entity.Coupon;
-import com.example.foodeliver.model.entity.Order;
-import com.example.foodeliver.model.entity.Ration;
+import com.example.foodeliver.model.dto.CouponDTO;
+import com.example.foodeliver.model.dto.OrderResponseDTO;
+import com.example.foodeliver.model.dto.Ration;
 import com.example.foodeliver.service.CouponService;
 import com.example.foodeliver.service.OperatorService;
 import com.example.foodeliver.service.OrderService;
@@ -14,21 +13,17 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/operator")
 @Getter @Setter
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class OperatorController {
 
     @Autowired
@@ -41,12 +36,19 @@ public class OperatorController {
     private RationService rationService;
 
     @GetMapping("/orders")
-    public @NotNull List<Order> operatorOrder() {
-        return orderService.getAllOrders();
+    public @NotNull List<OrderResponseDTO> operatorOrder() {
+        return orderService.getAllOrders().stream().map(order -> new OrderResponseDTO(
+                order.getId(),
+                order.getRation().getRationName(),
+                order.getShippingDate().toString(),
+                order.getStatus().toString(),
+                order.getSubscrabeStatusEnum().toString(),
+                OrderService.getFullAddress(order.getAdress())
+        )).collect(Collectors.toList());
     }
 
     @PostMapping("/orders")
-    public @NotNull ResponseEntity<?> orderSubmit(@NotNull @RequestParam final Long id) {
+    public @NotNull ResponseEntity<?> confirmOrder(@NotNull @RequestBody final Long id) {
         operatorService.submit(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -58,18 +60,27 @@ public class OperatorController {
     }
 
     @GetMapping("/operator_coupons")
-    public @NotNull List<Coupon> operatorCoupons() {
-        return couponService.getAllCoupons();
+    public @NotNull List<CouponDTO> operatorCoupons() {
+        return couponService.getAllCoupons().stream().map(coupon ->
+                new CouponDTO(
+                        coupon.getId(),
+                        OrderService.getFullAddress(coupon.getAdress()),
+                        coupon.getCouponStatusEnum().toString(),
+                        coupon.getName(),
+                        coupon.getShippingDate().toString()
+                        )).collect(Collectors.toList());
     }
 
     @GetMapping("/rations")
     public @NotNull List<Ration> rations() {
-        return rationService.getAllRations();
+        return rationService.getAllRations().stream().map(r -> new Ration(r.getId(), r.getRationName(),
+                r.getRationDescription(), r.getPrice())).collect(Collectors.toList());
     }
 
     @PostMapping("/rations")
-    public @NotNull ResponseEntity<?> rationsSubmit(@RequestBody @NotNull final RationDTO rd) {
-        if(!rd.isAllFieldNonNull()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public @NotNull ResponseEntity<?> rationsSubmit(@RequestBody @NotNull final Ration rd) {
+        if(List.of(rd.getName(), rd.getDescription(), rd.getPrice()).stream().anyMatch(Objects::isNull))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         rationService.saveRation(RationService.getRationOne(rd.getName(), rd.getPrice(), rd.getDescription()));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -77,6 +88,13 @@ public class OperatorController {
     @DeleteMapping("/delete_ration")
     public @NotNull ResponseEntity<?> deleteRation(@RequestParam @NotNull final Long id) {
         rationService.getRationRepository().deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/deleterations")
+    public @NotNull ResponseEntity<?> deleteRations(@RequestBody @NotNull final Long[] ids) {
+        Arrays.stream(ids).forEach(id -> rationService.getRationRepository().deleteById(id));
+        System.out.println("yeah");
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

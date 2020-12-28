@@ -1,5 +1,6 @@
 package com.example.foodeliver.service;
 
+import com.example.foodeliver.model.entity.Coupon;
 import com.example.foodeliver.model.entity.Order;
 import com.example.foodeliver.model.entity.status.CouponStatusEnum;
 import com.example.foodeliver.model.entity.status.OrderPayStatus;
@@ -19,7 +20,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class OperatorService {
-    public static final int ADD_MONTH = 30;
     @Autowired
     private OrderService orderService;
     @Autowired
@@ -38,33 +38,45 @@ public class OperatorService {
 
     public void submit(@NotNull final Long id) {
         final Order order = orderService.orderById(id);
-        final Operator operator = getCurrentOperator();
-        final Double operatorBalance;
+//        final Operator operator = getCurrentOperator();
+//        final Double operatorBalance;
         final CouponStatusEnum couponStatusEnum;
+        final LocalDate shippingDate = order.getShippingDate();
+        final LocalDate lastShippingDate = order.getShippingDate();
+        if(isExtendSubscribe(order.getStatus(), order.getSubscrabeStatusEnum())) {
+            order.setShippingDate(shippingDate.plusMonths(1));
+            order.setStatus(OrderPayStatus.PAID);
+        }
         switch (order.getStatus()) {
             case PAID:
                 order.setStatus(OrderPayStatus.CONFIRMED);
                 couponStatusEnum = CouponStatusEnum.AWAITING;
-                operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
+//                operatorBalance = operator.getAccount().getBalance() + order.getRation().getPrice();
                 break;
             case REFUNDED:
                 couponStatusEnum = CouponStatusEnum.BACK_DELLIVERED;
-                operatorBalance = operator.getAccount().getBalance() - order.getRation().getPrice();
+//                operatorBalance = operator.getAccount().getBalance() - order.getRation().getPrice();
                 break;
+            case DONE:
+                if (order.getSubscrabeStatusEnum() == SubscribeStatusEnum.SINGLE) {
+                    orderService.getOrderRepository().delete(order);
+                }
             default:
                 couponStatusEnum = CouponStatusEnum.DONE;
-                operatorBalance = operator.getAccount().getBalance();
+//                operatorBalance = operator.getAccount().getBalance();
         }
-        final LocalDate shippingDate = order.getShippingDate();
-        if(isExtendSubscribe(order.getStatus(), order.getSubscrabeStatusEnum())) {
-            order.setShippingDate(shippingDate.plusDays(ADD_MONTH));
-            order.setStatus(OrderPayStatus.PAID);
+//        operator.getAccount().setBalance(operatorBalance);
+//        saveOperatorState(operator);
+        if (order.getStatus() == OrderPayStatus.CONFIRMED) {
+            couponService.saveCoupon(CouponService.couponFactoryMethod(order.getRation().getRationName(),
+                    couponStatusEnum, order.getAdress(), shippingDate));
+            orderService.saveOrder(order);
+        } else {
+            final Coupon coupon = couponService.getCouponRepository().getByAdressAndShippingDateAndName(
+                    order.getAdress(), order.getShippingDate(), order.getRation().getRationName());
+            coupon.setCouponStatusEnum(couponStatusEnum);
+            couponService.saveCoupon(coupon);
         }
-        operator.getAccount().setBalance(operatorBalance);
-        saveOperatorState(operator);
-        orderService.saveOrder(order);
-        couponService.saveCoupon(CouponService.couponFactoryMethod(order.getRation().getRationName(),
-                couponStatusEnum, order.getAdress(), shippingDate));
     }
 
     public static boolean isExtendSubscribe(@NotNull final OrderPayStatus status,

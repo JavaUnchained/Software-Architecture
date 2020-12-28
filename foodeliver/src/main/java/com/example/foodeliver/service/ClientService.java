@@ -33,41 +33,43 @@ public class ClientService {
 
     public void saveClient(@NotNull final Client client) {
         clientRepository.save(client);
-
     }
 
-    public Client getClientByUsername(@NotNull final String username) {
-        return clientRepository.getClientByUsername(username);
+    public void saveOrder(@NotNull final Order order) {
+        orderService.getOrderRepository().save(order);
     }
 
     public void refund(@NotNull final Long orderId) {
         final Order order = orderService.orderById(orderId);
         final Client client = getCurrentClient();
-        client.getAccount().setBalance(client.getAccount().getBalance() + order.getRation().getPrice());
-        saveClient(client);
+//        client.getAccount().setBalance(client.getAccount().getBalance() + order.getRation().getPrice());
+        List<Order> orders = client.getOrders();
         order.setStatus(OrderPayStatus.REFUNDABLE);
-        orderService.saveOrder(order);
+//        orderService.saveOrder(order);
+        client.setOrders(orders);
+        saveClient(client);
     }
 
-    public void makeOrder(@NotNull final String name,
+    public void makeOrder(@NotNull final Integer rationId,
                           @NotNull final String address,
                           @NotNull final LocalDate stripping,
                           @NotNull final Integer subscribed) {
         final List<String> adr = Arrays.asList(address.split(","));
         final Adress adress = new Adress(adr.get(0), adr.get(1), adr.get(2), adr.get(3));
-        final Ration ration = rationService.getRationByName(name);
+        final Ration ration = rationService.getRationRepository().getRationById(Long.valueOf(rationId));
         final SubscribeStatusEnum subscribe = subscribed > 0 ?
                 SubscribeStatusEnum.SUBSCRIBE : SubscribeStatusEnum.SINGLE;
         final Order order = OrderService.getOrderOne(OrderPayStatus.PAID, adress, stripping, subscribe,ration);
         final Client client = getCurrentClient();
-        final Double balance  = client.getAccount().getBalance() - ration.getPrice();
         final List<Order> orders = client.getOrders();
         orders.add(order);
-        client.getAccount().setBalance(balance);
         client.setOrders(orders);
+        order.setClient(client);
         saveClient(client);
     }
     public Client getCurrentClient() {
+        System.out.println(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
+                + clientRepository.getClientByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
         return clientRepository.getClientByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 }

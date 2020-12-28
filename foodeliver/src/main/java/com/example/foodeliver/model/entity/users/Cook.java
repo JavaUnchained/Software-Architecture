@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cook")
 @Data
 @NoArgsConstructor
 public class Cook extends User {

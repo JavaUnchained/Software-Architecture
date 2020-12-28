@@ -15,14 +15,12 @@ public class Ration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ration_name", unique = true, nullable = false)
+    @Column(name = "ration_name", nullable = false)
     private String rationName;
     private String rationDescription;
     private Double price;
 
-    @OneToOne(mappedBy = "ration", cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
-    })
+    @OneToOne(mappedBy = "ration", cascade = {CascadeType.ALL})
     private Order order;
 
     public Ration(String rationName, String rationDescription, Double price) {

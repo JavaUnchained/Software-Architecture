@@ -24,11 +24,11 @@ public class Account {
 
     @OneToOne(mappedBy = "account", cascade = {
             CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Client passenger;
+    private Client client;
 
     @OneToOne(mappedBy = "account", cascade = {
             CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Operator driver;
+    private Operator operator;
 
     public Account(@NotNull final Double balance) {
         this.balance = balance;

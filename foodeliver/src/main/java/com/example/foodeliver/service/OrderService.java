@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 @Service
 @Getter
@@ -30,6 +31,12 @@ public class OrderService {
                                     @NotNull final SubscribeStatusEnum subscribeStatusEnum,
                                     @NotNull final Ration ration){
         return new Order(status,adress,shippingDate,subscribeStatusEnum,ration);
+    }
+
+    @NotNull
+    public static String getFullAddress(@NotNull final Adress adress) {
+        return new StringJoiner(", ")
+                .add(adress.getCity()).add(adress.getStreet()).add(adress.getHouse()).add(adress.getFlat()).toString();
     }
 
     @NotNull
